@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Answers to common questions about reporting transportation-related problems with CommuteCare.">
+    <title>FAQ &amp; Help Center | CommuteCare</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/faq.css">
+    <link rel="stylesheet" href="styles/footer.css">
+    <script src="scripts/menu.js" defer></script>
+    <script src="scripts/faq.js" defer></script>
+  </head>
+  <body>
+    <!-- Sticky navigation (same as the home page) -->
+    <header class="navbar navbar-expand-md sticky-top bg-white border-bottom px-3 px-lg-5">
+      <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" href="index.html#home">
+          <span class="bg-primary text-white rounded-2 px-2 py-1">
+            <i class="bi bi-link-45deg"></i>
+          </span>
+          <span>CommuteCare</span>
+        </a>
+
+        <button class="navbar-toggler" type="button"
+          aria-label="Open navigation menu"
+          aria-expanded="false"
+          aria-controls="site-navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <nav class="collapse navbar-collapse justify-content-md-end"
+          id="site-navigation" aria-label="Main navigation">
+          <div class="navbar-nav align-items-md-center gap-md-4">
+            <a class="nav-link" href="index.html#home">Home</a>
+            <a class="nav-link" href="index.html#how-it-works">How It Works</a>
+            <a class="nav-link active" href="faq.html" aria-current="page">FAQ</a>
+            <a class="nav-link" href="index.html#contact">Contact</a>
+            <a class="btn btn-outline-primary ms-md-2" href="track.html">
+              <i class="bi bi-search me-1"></i> Track Report
+            </a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main class="faq-page py-4 py-lg-5">
+      <div class="container">
+
+        <!-- Page heading -->
+        <header class="mb-4">
+          <h1 class="faq-title">FAQ &amp; Help Center</h1>
+          <p class="faq-subtitle mb-0">Find answers and guidance about reporting transportation-related problems.</p>
+        </header>
+
+        <!-- Search -->
+        <form class="faq-search mb-4 mb-lg-5" id="faq-search-form" role="search">
+          <label class="form-label fw-semibold" for="faq-search">Search for help topics</label>
+          <div class="d-flex flex-column flex-sm-row gap-2">
+            <input class="form-control" type="search" id="faq-search" placeholder="Enter a topic or keyword" autocomplete="off">
+            <button class="btn faq-btn-dark px-4" type="submit">Search</button>
+          </div>
+        </form>
+
+        <div class="row g-4">
+
+          <!-- Categories -->
+          <aside class="col-lg-3 col-xl-2 order-1">
+            <h2 class="faq-heading h5 mb-3">FAQ Categories</h2>
+            <div class="faq-categories list-group rounded-0" id="faq-categories" role="group" aria-label="FAQ categories">
+              <button type="button" class="list-group-item list-group-item-action active" data-category="all">All topics</button>
+              <button type="button" class="list-group-item list-group-item-action" data-category="getting-started">Getting started</button>
+              <button type="button" class="list-group-item list-group-item-action" data-category="submitting">Submitting a report</button>
+              <button type="button" class="list-group-item list-group-item-action" data-category="evidence">Evidence &amp; uploads</button>
+              <button type="button" class="list-group-item list-group-item-action" data-category="tracking">Tracking &amp; updates</button>
+            </div>
+          </aside>
+
+          <!-- FAQ list -->
+          <section class="col-lg-9 col-xl-6 order-2" aria-labelledby="faq-heading">
+            <h2 class="faq-heading h4 mb-3" id="faq-heading">Frequently Asked Questions</h2>
+            <p class="faq-status small text-secondary" id="faq-status" role="status" aria-live="polite"></p>
+
+            <div class="faq-list" id="faq-list">
+
+              <article class="faq-item" data-category="getting-started">
+                <h3 class="faq-q">
+                  <button type="button" class="faq-toggle" aria-expanded="false" aria-controls="faq-a1" id="faq-q1">
+                    <span>What issues can I report?</span><i class="bi bi-plus-lg" aria-hidden="true"></i>
+                  </button>
+                </h3>
+                <div class="faq-a" id="faq-a1" role="region" aria-labelledby="faq-q1" hidden>
+                  <p>You can report garbage, flooding, damaged sidewalks, broken streetlights, and electrical hazards near stations, terminals, and other public transportation facilities.</p>
+                </div>
+              </article>
+
+              <article class="faq-item" data-category="submitting">
+                <h3 class="faq-q">
+                  <button type="button" class="faq-toggle" aria-expanded="false" aria-controls="faq-a2" id="faq-q2">
+                    <span>How do I submit a report?</span><i class="bi bi-plus-lg" aria-hidden="true"></i>
+                  </button>
+                </h3>
+                <div class="faq-a" id="faq-a2" role="region" aria-labelledby="faq-q2" hidden>
+                  <p>Go to the <a href="report.html">Report page</a>, choose the issue category, enter the location, describe the problem, attach evidence if you have any, then select Submit. You will receive a reference number after submitting.</p>
+                </div>
+              </article>
+
+              <article class="faq-item" data-category="submitting">
+                <h3 class="faq-q">
+                  <button type="button" class="faq-toggle" aria-expanded="false" aria-controls="faq-a3" id="faq-q3">
+                    <span>What information is required?</span><i class="bi bi-plus-lg" aria-hidden="true"></i>
+                  </button>
+                </h3>
+                <div class="faq-a" id="faq-a3" role="region" aria-labelledby="faq-q3" hidden>
+                  <p>Every report needs an issue category, the location (station, terminal, or street), a short description, and the date you noticed the problem. Photos or videos are optional but help reviewers act faster.</p>
+                </div>
+              </article>
+
+              <article class="faq-item" data-category="evidence">
+                <h3 class="faq-q">
+                  <button type="button" class="faq-toggle" aria-expanded="false" aria-controls="faq-a4" id="faq-q4">
+                    <span>How do I upload evidence?</span><i class="bi bi-plus-lg" aria-hidden="true"></i>
+                  </button>
+                </h3>
+                <div class="faq-a" id="faq-a4" role="region" aria-labelledby="faq-q4" hidden>
+                  <p>On the Report page, use the evidence upload field to attach clear photos of the issue. Make sure the problem and its surroundings are visible, and avoid including faces or personal information where possible.</p>
+                </div>
+              </article>
+
+              <article class="faq-item" data-category="tracking">
+                <h3 class="faq-q">
+                  <button type="button" class="faq-toggle" aria-expanded="false" aria-controls="faq-a5" id="faq-q5">
+                    <span>How do I track my report?</span><i class="bi bi-plus-lg" aria-hidden="true"></i>
+                  </button>
+                </h3>
+                <div class="faq-a" id="faq-a5" role="region" aria-labelledby="faq-q5" hidden>
+                  <p>Open the <a href="track.html">Track Report page</a> and enter the reference number you received after submitting. The page shows the current status of your report, such as Received, Under Review, or Resolved.</p>
+                </div>
+              </article>
+
+              <article class="faq-item" data-category="tracking">
+                <h3 class="faq-q">
+                  <button type="button" class="faq-toggle" aria-expanded="false" aria-controls="faq-a6" id="faq-q6">
+                    <span>What happens if my report is rejected?</span><i class="bi bi-plus-lg" aria-hidden="true"></i>
+                  </button>
+                </h3>
+                <div class="faq-a" id="faq-a6" role="region" aria-labelledby="faq-q6" hidden>
+                  <p>A report may be rejected if it is a duplicate, outside the covered facilities, or lacks enough detail to verify. The tracking page shows the reason, and you may submit a new report with corrected information.</p>
+                </div>
+              </article>
+
+              <article class="faq-item" data-category="tracking">
+                <h3 class="faq-q">
+                  <button type="button" class="faq-toggle" aria-expanded="false" aria-controls="faq-a7" id="faq-q7">
+                    <span>How do I provide additional information?</span><i class="bi bi-plus-lg" aria-hidden="true"></i>
+                  </button>
+                </h3>
+                <div class="faq-a" id="faq-a7" role="region" aria-labelledby="faq-q7" hidden>
+                  <p>If reviewers request more details, open your report on the Track Report page using your reference number and follow the prompt to add notes or upload more evidence.</p>
+                </div>
+              </article>
+
+            </div>
+
+            <p class="faq-empty" id="faq-empty" hidden>
+              <i class="bi bi-search me-2" aria-hidden="true"></i>No questions match your search. Try a different keyword or choose another category.
+            </p>
+          </section>
+
+          <!-- Side cards -->
+          <aside class="col-lg-12 col-xl-4 order-3">
+            <div class="row g-4">
+              <div class="col-md-6 col-xl-12">
+                <div class="faq-card h-100" id="contact">
+                  <h2 class="h4 faq-heading mb-3">Need More Help?</h2>
+                  <p class="faq-muted">Can&rsquo;t find the answer you need? Contact our team for help with your report.</p>
+                  <a class="btn faq-btn-dark w-100" href="index.html#contact">Contact Us</a>
+                </div>
+              </div>
+              <div class="col-md-6 col-xl-12">
+                <div class="faq-card h-100">
+                  <h2 class="h4 faq-heading mb-3">New to CommuteCare?</h2>
+                  <p class="faq-muted">Learn what to report, how to submit clear evidence, and how to follow your report&rsquo;s progress.</p>
+                  <a class="btn faq-btn-light w-100" href="index.html#how-it-works">Read the Guide</a>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer py-4">
+      <div class="container d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-2">
+        <p class="footer-copyright mb-0">&copy; 2026 CommuteCare</p>
+        <p class="footer-notice mb-0">This is intended for Web Development (WEBDEVT) demo purposes only.</p>
+      </div>
+    </footer>
+  </body>
+</html>
