@@ -30,27 +30,45 @@
   </head>
   <body>
     <!-- A sticky header keeps the main actions close while the page is in view. -->
-    <header class="navbar navbar-expand-md sticky-top bg-light px-3 px-lg-5">
-      <div class="container-fluid">
-      <a class="navbar-brand d-flex align-items-center gap-2 mb-0" href="#home" aria-label="Suri home">
-        <span class="brand-mark" aria-hidden="true">s</span>
-        <span class="brand-name fs-4 fw-bold">suri<span class="brand-period">.</span></span>
-      </a>
+    
+<header class="navbar navbar-expand-md sticky-top bg-white border-bottom px-3 px-lg-5">
+  <div class="container-fluid">
 
-      <button class="navbar-toggler" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="site-navigation">
-        <span class="navbar-toggler-icon" aria-hidden="true"></span>
-      </button>
+    <!-- CommuteCare Logo -->
+    <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" href="#home">
+      <span class="bg-primary text-white rounded-2 px-2 py-1">
+        <i class="bi bi-link-45deg"></i>
+      </span>
+      <span>CommuteCare</span>
+    </a>
 
-      <nav class="collapse navbar-collapse justify-content-md-end" id="site-navigation" aria-label="Main navigation">
-        <div class="navbar-nav align-items-md-center gap-md-5">
-          <a class="nav-link active" href="#home" aria-current="page">Home</a>
-          <a class="nav-link" href="#how-it-works">About</a>
-          <a class="nav-link" href="#volunteer">Volunteer</a>
-          <a class="btn btn-outline-dark ms-md-2" href="report.html">Report <span aria-hidden="true">↗</span></a>
-        </div>
-      </nav>
+    <!-- Mobile Menu Button -->
+    <button class="navbar-toggler" type="button"
+      aria-label="Open navigation menu"
+      aria-expanded="false"
+      aria-controls="site-navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navigation Links -->
+    <nav class="collapse navbar-collapse justify-content-md-end"
+      id="site-navigation" aria-label="Main navigation">
+
+      <div class="navbar-nav align-items-md-center gap-md-4">
+        <a class="nav-link active" href="#home" aria-current="page">Home</a>
+        <a class="nav-link" href="#how-it-works">How It Works</a>
+        <a class="nav-link" href="#faq">FAQ</a>
+        <a class="nav-link" href="#contact">Contact</a>
+
+        <a class="btn btn-outline-primary ms-md-2" href="track.html">
+          <i class="bi bi-search me-1"></i> Track Report
+        </a>
       </div>
-    </header>
+
+    </nav>
+  </div>
+</header>
+
 
     <main>
       <!-- The hero fills the space below the header and uses a photo selected in scripts/hero.js. -->
@@ -58,27 +76,41 @@
         <div class="container position-relative">
           <div class="row g-5 align-items-center">
             <div class="col-lg-8 hero-content">
-              <p class="hero-eyebrow d-flex align-items-center gap-2 fw-bold mb-3"><span class="eyebrow-dot" aria-hidden="true"></span> Scam ba 'to?</p>
-              <h1 class="hero-title fw-semibold mb-0" id="hero-title">May kahina-hinala?<br><span>Ipa-suri natin.</span></h1>
-              <p class="hero-description lead my-4">A suspicious link or message can reach anyone. Share it with the community and help everyone stay one step ahead.</p>
-              <a class="btn btn-primary d-inline-flex align-items-center gap-4" href="report.html">Report something suspicious <span aria-hidden="true">↗</span></a>
-              <p class="hero-note small mt-4 mb-0"><span aria-hidden="true">✳</span> Check first. Share smarter.</p>
-            </div>
-            <div class="col-lg-4">
-              <aside class="report-lookup" id="report" aria-labelledby="report-lookup-title">
-                <h2 class="report-lookup-title" id="report-lookup-title">Already submitted a report?</h2>
-                <p class="report-lookup-copy">Enter your report number to check its status.</p>
-                <form id="report-lookup-form">
-                  <label class="form-label" for="report-number">Report number</label>
-                  <input class="form-control mb-3" id="report-number" name="report-number" type="text" placeholder="e.g. SR-2026-001" autocomplete="off" required>
-                  <button class="btn btn-primary w-100" type="submit">Check report status <span aria-hidden="true">→</span></button>
-                  <p class="report-lookup-feedback small mt-3 mb-0" id="report-lookup-feedback" role="status" aria-live="polite" hidden></p>
-                </form>
-              </aside>
-            </div>
-          </div>
-        </div>
-        <p class="photo-credit position-absolute bottom-0 end-0 small m-3">A little caution goes a long way.</p>
+              
+      <p class="hero-eyebrow d-flex align-items-center gap-2 fw-bold mb-3">
+        <i class="bi bi-geo-alt"></i>
+            BETTER JOURNEYS START WITH US
+      </p>
+
+      <h1 class="hero-title fw-semibold mb-0" id="hero-title">
+        A Safer, Cleaner,<br>
+        Better Commute for<br>
+        Everyone.
+      </h1>
+
+      <p class="hero-description lead my-4">
+      Help improve the places we pass through every day.
+      Report issues near stations, terminals, sidewalks,
+      and transport facilities for LRMC and LGUs to review.
+      </p>
+
+      <div class="d-flex flex-wrap gap-2">
+      <a class="btn btn-primary" href="report.html">
+      <i class="bi bi-plus-circle me-1"></i>
+      Report an Issue
+    </a>
+
+    <a class="btn btn-outline-primary" href="track.html">
+    <i class="bi bi-search me-1"></i>
+    Track a Report
+    </a>
+  </div>
+
+    <p class="hero-note small mt-4 mb-0">
+      <i class="bi bi-people me-1"></i>
+  For our communities. For our everyday commute.
+    </p>
+
       </section>
 
       <!-- Static cards introduce common scam categories without needing JavaScript. -->

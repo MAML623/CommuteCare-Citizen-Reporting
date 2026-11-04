@@ -106,3 +106,77 @@
     animation: none;
   }
 }
+
+
+/* CommuteCare Hero Design */
+
+.hero {
+    min-height: auto;
+    background: #f0f6ff;
+    color: #152e50;
+}
+
+.hero::before {
+    display: none;
+}
+
+.hero-content {
+    padding-block: 4rem;
+}
+
+.hero-eyebrow {
+    color: #155edf;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.hero-title {
+    color: #152e50;
+    font-family: "DM Sans", sans-serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 700;
+    line-height: 1.12;
+}
+
+.hero-description {
+    color: #64748b;
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 520px;
+}
+
+.hero .btn-primary {
+    background-color: #155edf;
+    border-color: #155edf;
+    color: white;
+}
+
+.hero .btn-primary:hover {
+    background-color: #104abd;
+    border-color: #104abd;
+    color: white;
+}
+
+.hero .btn-outline-primary {
+    background-color: white;
+    border-color: #dbe5f1;
+    color: #155edf;
+}
+
+.hero-note {
+    color: #64748b;
+}
+
+.hero .photo-credit {
+    display: none;
+}
+
+@media (max-width: 767.98px) {
+    .hero-content {
+        padding-block: 3rem 1.5rem;
+    }
+
+    .hero-title {
+        font-size: 2.3rem;
+    }
+}

@@ -1,101 +1,160 @@
-/* The short report heading sits above the form as its own viewport-height section. */
+
+/* REPORT PAGE */
 .report-hero {
-  position: relative;
-  min-height: 25svh;
-  isolation: isolate;
-  padding-block: 2rem;
-  background-color: #293c35;
-  background-image: var(--hero-image);
-  background-position: center 48%;
-  background-size: cover;
-  color: #fff;
+    background: #f0f6ff;
+    padding: 55px 0;
+    color: #152e50;
 }
 
-.report-hero::before {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  background: linear-gradient(90deg, rgb(15 29 25 / 82%), rgb(15 29 25 / 56%) 55%, rgb(15 29 25 / 20%));
-  content: "";
-}
+    .report-hero::before {
+        display: none;
+    }
 
 .report-eyebrow {
-  color: var(--green);
-  font-size: 0.75rem;
-}
-
-.report-hero-title,
-.report-form-title {
-  color: var(--ink);
-  font-family: var(--display-font);
+    color: #155edf;
+    letter-spacing: 1px;
 }
 
 .report-hero-title {
-  color: #fff;
-  font-size: clamp(2rem, 4.5vw, 3.5rem);
-  line-height: 1.08;
+    color: #152e50;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
 }
 
 .report-hero-copy {
-  max-width: 620px;
-  color: rgb(255 255 255 / 86%);
-  font-size: 1.05rem;
-  line-height: 1.6;
+    color: #64748b;
+}
+
+.report-form-section {
+    background: #f5f8fd;
 }
 
 .report-form-intro {
-  max-width: 720px;
+    max-width: 900px;
 }
 
 .report-form-title {
-  font-size: clamp(1.6rem, 3vw, 2.25rem);
+    color: #152e50;
+    font-weight: 700;
 }
 
 .report-form {
-  max-width: 900px;
-  padding: clamp(1.25rem, 4vw, 2.5rem);
-  border: 1px solid #e0e5dc;
-  border-radius: 4px;
+    max-width: 900px;
+    margin: auto;
+    padding: clamp(20px, 4vw, 40px);
+    border: 1px solid #dbe5f1;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(21, 46, 80, 0.06);
 }
 
-.report-form .form-label,
-.location-fieldset legend,
-.privacy-agreement legend {
-  color: var(--ink);
-  font-weight: 600;
+.section-heading {
+    color: #155edf;
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #dbeafe;
+}
+
+.report-form .form-label {
+    color: #152e50;
+    font-weight: 600;
 }
 
 .report-form .form-control,
 .report-form .form-select {
-  min-height: 48px;
+    min-height: 45px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
 }
 
 .report-form textarea.form-control {
-  min-height: 120px;
+    min-height: 120px;
 }
 
-.location-mode .btn {
-  min-height: 44px;
+.report-form .form-control:focus,
+.report-form .form-select:focus {
+    border-color: #155edf;
+    box-shadow: 0 0 0 3px rgba(21, 94, 223, 0.12);
 }
 
+/* SEVERITY BUTTONS */
+.severity-options {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+    .severity-options input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .severity-options label {
+        flex: 1;
+        min-width: 45px;
+        cursor: pointer;
+    }
+
+    .severity-options span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 45px;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        color: #155edf;
+        background: white;
+        font-weight: 700;
+        transition: 0.2s;
+    }
+
+    .severity-options input:checked + span {
+        background: #155edf;
+        border-color: #155edf;
+        color: white;
+    }
+
+    .severity-options label:hover span {
+        border-color: #155edf;
+    }
+
+    .severity-options input:focus-visible + span {
+        outline: 3px solid #93c5fd;
+        outline-offset: 2px;
+    }
+
+.severity-labels {
+    display: flex;
+    justify-content: space-between;
+    color: #64748b;
+    font-size: 12px;
+    margin-top: 7px;
+}
+
+/* SUBMIT BUTTON */
 .report-submit {
-  min-height: 48px;
-  padding-inline: 1.25rem;
+    min-height: 48px;
+    padding: 10px 25px;
+    background: #155edf;
+    border-color: #155edf;
+    color: white;
+    border-radius: 6px;
+    font-weight: 600;
 }
 
-.report-form-status {
-  color: #314128;
-}
+    .report-submit:hover {
+        background: #104abd;
+        border-color: #104abd;
+        color: white;
+    }
 
 @media (max-width: 575.98px) {
-  .location-mode {
-    display: flex;
-    width: 100%;
-  }
+    .report-form {
+        padding: 20px 16px;
+    }
 
-  .location-mode .btn {
-    flex: 1;
-    padding-inline: 0.5rem;
-    font-size: 0.9rem;
-  }
+    .severity-options {
+        gap: 7px;
+    }
 }
