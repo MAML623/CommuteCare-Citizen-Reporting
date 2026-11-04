@@ -1,0 +1,47 @@
+/* FAQ & Help Center page */
+.faq-page { min-height: 70vh; }
+
+.faq-title { font-family: var(--display-font); font-weight: 700; font-size: clamp(1.8rem, 4vw, 2.5rem); }
+.faq-subtitle { color: #59635e; }
+.faq-heading { font-family: var(--display-font); font-weight: 600; }
+.faq-muted { color: #59635e; }
+
+/* Buttons */
+.faq-btn-dark { background: #212529; border: 1px solid #212529; color: #fff; font-weight: 600; }
+.faq-btn-dark:hover, .faq-btn-dark:focus-visible { background: #000; color: #fff; }
+.faq-btn-light { background: #fff; border: 1px solid #212529; color: #212529; font-weight: 600; }
+.faq-btn-light:hover, .faq-btn-light:focus-visible { background: #212529; color: #fff; }
+
+/* Search */
+.faq-search { background: #fff; border: 1px solid #d5dad2; padding: 1.25rem; }
+.faq-search .form-control { border-radius: 0; border-color: #8a918d; padding: .75rem; }
+.faq-search .btn { border-radius: 0; }
+
+/* Categories */
+.faq-categories .list-group-item { border-radius: 0; font-weight: 500; padding: .9rem 1rem; }
+.faq-categories .list-group-item.active { background: #eceee9; color: #182722; border-color: #8a918d; font-weight: 700; }
+
+/* Accordion */
+.faq-item { background: #fff; border: 1px solid #8a918d; margin-bottom: .75rem; }
+.faq-q { margin: 0; font-size: 1rem; }
+.faq-toggle {
+  display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 1rem; background: transparent; border: 0; text-align: left; font-weight: 600; color: var(--ink);
+}
+.faq-toggle[aria-expanded="true"] { background: #f1f1f1; }
+.faq-toggle:focus-visible { outline: 3px solid #0d6efd; outline-offset: -3px; }
+.faq-a { padding: 1rem; border-top: 1px solid #d5dad2; color: #59635e; }
+.faq-a p { margin: 0; }
+.faq-a[hidden] { display: none; }
+.faq-item[hidden] { display: none; }
+
+.faq-empty { background: #fff; border: 1px dashed #8a918d; padding: 1.25rem; color: #59635e; }
+
+/* Side cards */
+.faq-card { background: #f1f1f1; border: 1px solid #d5dad2; padding: 1.5rem; }
+
+/* Mobile: categories become a horizontal scrolling row, no page overflow */
+@media (max-width: 991.98px) {
+  .faq-categories { flex-direction: row; overflow-x: auto; flex-wrap: nowrap; }
+  .faq-categories .list-group-item { white-space: nowrap; flex: 0 0 auto; border-width: 1px !important; }
+}
