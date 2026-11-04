@@ -19,10 +19,10 @@ const demoReportsRequest = fetch("data/reports.json")
   .catch(() => ({}));
 
 const timelineSteps = [
-  { title: "Report submitted", copy: "Your report has been saved." },
-  { title: "AI analysis", copy: "The submitted content is checked for known or similar reports." },
-  { title: "Community review", copy: "Reviewers assess reports that need a human decision." },
-  { title: "Verdict published", copy: "The final assessment is shown on this report." }
+    { title: "Submitted", copy: "Your report was saved and given a reference number." },
+    { title: "Received", copy: "CommuteCare checked your report and sent it to the right office." },
+    { title: "Under Review", copy: "The office is checking the location and evidence." },
+    { title: "Resolved", copy: "The office has fixed or closed the issue." }
 ];
 
 // Read saved report data from this browser and parse its JSON text into an object.
@@ -51,9 +51,9 @@ const setValue = (selector, value) => {
 
 // Build the progress list by creating HTML elements and adding them to the page.
 const buildTimeline = (report) => {
-  const currentStep = report.status === "verdict"
+  const currentStep = report.status === "resolved"
     ? 3
-    : report.status === "community-review"
+    : report.status === "under-review"
       ? 2
       : 1;
 
@@ -95,25 +95,25 @@ const displayReport = (report, isExample = false) => {
   setValue("#track-category", report.category);
   setValue("#track-report-heading", report.reportNumber);
   setValue("#track-description", report.description);
-  setValue("#track-sender", report.sender);
-  setValue("#track-date-received", formatDate(report.receivedDate));
+  setValue("#track-sender", report.office);
+  setValue("#track-date-received", formatDate(report.dateObserved));
   setValue("#track-location", report.location);
   setValue("#track-submitted", formatDate(report.submittedAt));
 
   const statusLabel = report.status === "verdict"
-    ? "Verdict published"
+    ? "Resolved"
     : report.status === "community-review"
-      ? "Community review"
-      : "Pending review";
+      ? "Under Review"
+      : "Received";
 
   trackStatus.textContent = statusLabel;
   // `toggle` adds or removes this CSS class depending on whether a verdict is published.
   trackStatus.classList.toggle("is-verdict", report.status === "verdict");
 
   const messageRow = document.querySelector("#track-message-row");
-  messageRow.hidden = !report.suspiciousText;
-  if (report.suspiciousText) {
-    setValue("#track-message", report.suspiciousText);
+  messageRow.hidden = !report.landmark;
+  if (report.landmark) {
+    setValue("#track-message", report.landmark);
   }
 
   const screenshotRow = document.querySelector("#track-screenshot-row");
@@ -123,12 +123,12 @@ const displayReport = (report, isExample = false) => {
   }
 
   buildTimeline(report);
-  trackVerdict.hidden = report.status !== "verdict";
+    trackVerdict.hidden = !report.update;
 
-  if (report.status === "verdict") {
-    setValue("#track-verdict-title", report.verdict || "Verdict published");
-    setValue("#track-verdict-copy", report.verdictDetails || "This verdict was added to this report after review.");
-  }
+    if (report.update) {
+        setValue("#track-verdict-title", report.office);
+        setValue("#track-verdict-copy", report.update);
+    }
 
   if (isExample) {
     trackNotice.textContent = "Sample report shown for demonstration. This is not a real report or assessment.";

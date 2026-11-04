@@ -2,11 +2,11 @@
 .track-hero {
   min-height: 25svh;
   padding-block: 2rem;
-  background: #eaf1db;
+  background: #e6f2fb;
 }
 
 .track-eyebrow {
-  color: #52643a;
+  color: #1a8fc7;
   font-size: 0.75rem;
 }
 
@@ -64,7 +64,7 @@
 
 .track-category,
 .track-verdict-kicker {
-  color: #71824b;
+  color: #1a8fc7;
   font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -86,8 +86,8 @@
 }
 
 .track-status.is-verdict {
-  background: #eaf1db;
-  color: #314128;
+  background: #e6f2fb;
+  color: #1f2f5c;
 }
 
 .track-detail-title {
@@ -134,7 +134,7 @@
   right: 12.5%;
   left: 12.5%;
   height: 2px;
-  background: #dfe6d2;
+  background: #d6e2ef;
   content: "";
 }
 
@@ -159,16 +159,16 @@
 }
 
 .track-step.is-complete .track-step-marker {
-  border-color: #314128;
+  border-color: #1f2f5c;
   background: var(--green);
   color: var(--ink);
 }
 
 .track-step.is-current .track-step-marker {
-  border-color: #182722;
-  background: #182722;
+  border-color: #1f2f5c;
+  background: #1f2f5c;
   color: #fff;
-  box-shadow: 0 0 0 4px #e6edda;
+  box-shadow: 0 0 0 4px #dbeaf7;
 }
 
 .track-step-title {
@@ -191,8 +191,8 @@
 
 .track-verdict {
   padding: 1.5rem;
-  border-left: 4px solid #71824b;
-  background: #f0f3ed;
+  border-left: 4px solid #1a8fc7;
+  background: #eef5fb;
 }
 
 .track-verdict-title {
