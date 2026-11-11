@@ -100,15 +100,15 @@ const displayReport = (report, isExample = false) => {
   setValue("#track-location", report.location);
   setValue("#track-submitted", formatDate(report.submittedAt));
 
-  const statusLabel = report.status === "verdict"
+  const statusLabel = report.status === "resolved"
     ? "Resolved"
-    : report.status === "community-review"
+    : report.status === "under-review"
       ? "Under Review"
       : "Received";
 
   trackStatus.textContent = statusLabel;
   // `toggle` adds or removes this CSS class depending on whether a verdict is published.
-  trackStatus.classList.toggle("is-verdict", report.status === "verdict");
+  trackStatus.classList.toggle("is-verdict", report.status === "resolved");
 
   const messageRow = document.querySelector("#track-message-row");
   messageRow.hidden = !report.landmark;
