@@ -1,182 +1,138 @@
-/* Hero-only layout, contrast, and button colors. */
+
+/* =================================
+   CommuteCare Hero Section
+================================= */
+
 .hero {
-  min-height: calc(100svh - 76px);
+  min-height: auto;
+  background: #f0f6ff;
+  color: #152e50;
   isolation: isolate;
-  background: #293c35 var(--hero-image) center 48% / cover;
-  color: white;
 }
 
+/* Remove the old Suri background overlay */
 .hero::before {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  background: linear-gradient(90deg, rgb(15 29 25 / 88%), rgb(15 29 25 / 68%) 43%, rgb(15 29 25 / 14%)), linear-gradient(0deg, rgb(15 29 25 / 25%), transparent 36%);
-  content: "";
+  display: none;
 }
+
+/* Hero Text */
 
 .hero-content {
-  padding-block: clamp(4.75rem, 11vh, 7.75rem);
-  animation: arrive 650ms ease-out both;
+  padding-block: 3rem;
 }
 
 .hero-eyebrow {
-  color: var(--green);
-  font-size: 14px;
-}
-
-.eyebrow-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--coral);
+  color: #155edf;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
 .hero-title {
-  max-width: 900px;
-  font-family: var(--display-font);
-  font-size: clamp(2.8rem, 6.5vw, 5.125rem);
-  line-height: 1.04;
-}
-
-.hero-title span {
-  color: var(--green);
+  max-width: 650px;
+  color: #152e50;
+  font-family: "DM Sans", sans-serif;
+  font-size: clamp(2.2rem, 3.5vw, 3.15rem);
+  font-weight: 700;
+  line-height: 1.15;
 }
 
 .hero-description {
-  max-width: 500px;
-  color: rgb(255 255 255 / 84%);
-  line-height: 1.75;
-}
-
-.btn-primary {
-  --bs-btn-color: var(--ink);
-  --bs-btn-bg: var(--green);
-  --bs-btn-border-color: var(--green);
-  --bs-btn-hover-color: var(--ink);
-  --bs-btn-hover-bg: #d8ff75;
-  --bs-btn-hover-border-color: #d8ff75;
+  max-width: 520px;
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1.7;
 }
 
 .hero-note {
-  color: rgb(255 255 255 / 74%);
+  color: #64748b;
+  font-size: 0.8rem;
 }
 
-.hero-note span {
-  color: var(--coral);
-  font-size: 16px;
-}
-
-.photo-credit {
-  color: rgb(255 255 255 / 72%);
-}
-
-@keyframes arrive {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (max-width: 767.98px) {
-  .hero {
-    min-height: calc(100svh - 68px);
-    background-position: 58% center;
-  }
-
-  .hero::before {
-    background: linear-gradient(90deg, rgb(15 29 25 / 84%), rgb(15 29 25 / 43%)), linear-gradient(0deg, rgb(15 29 25 / 30%), transparent 50%);
-  }
-
-  .hero-content {
-    padding-block: 4.75rem 1rem;
-  }
-
-  .hero-description {
-    font-size: 1rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-content {
-    animation: none;
-  }
-}
-
-
-/* CommuteCare Hero Design */
-
-.hero {
-    min-height: auto;
-    background: #f0f6ff;
-    color: #152e50;
-}
-
-.hero::before {
-    display: none;
-}
-
-.hero-content {
-    padding-block: 4rem;
-}
-
-.hero-eyebrow {
-    color: #155edf;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-.hero-title {
-    color: #152e50;
-    font-family: "DM Sans", sans-serif;
-    font-size: clamp(2.5rem, 4vw, 4rem);
-    font-weight: 700;
-    line-height: 1.12;
-}
-
-.hero-description {
-    color: #64748b;
-    font-size: 1rem;
-    line-height: 1.7;
-    max-width: 520px;
-}
+/* Hero Buttons */
 
 .hero .btn-primary {
-    background-color: #155edf;
-    border-color: #155edf;
-    color: white;
+  background: #155edf;
+  border-color: #155edf;
+  color: #ffffff;
 }
 
 .hero .btn-primary:hover {
-    background-color: #104abd;
-    border-color: #104abd;
-    color: white;
+  background: #104abd;
+  border-color: #104abd;
+  color: #ffffff;
 }
 
 .hero .btn-outline-primary {
-    background-color: white;
-    border-color: #dbe5f1;
-    color: #155edf;
+  background: #ffffff;
+  border-color: #dbe5f1;
+  color: #155edf;
 }
 
-.hero-note {
-    color: #64748b;
+.hero .btn-outline-primary:hover {
+  background: #eaf2ff;
+  border-color: #155edf;
+  color: #155edf;
 }
 
-.hero .photo-credit {
-    display: none;
+/* Transportation Illustration */
+
+.hero-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-visual img {
+  display: block;
+  width: 100%;
+  max-width: 540px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Desktop Layout */
+
+@media (min-width: 992px) {
+  .hero .hero-content {
+    width: 58.333333%;
+  }
+
+  .hero .hero-visual {
+    width: 41.666667%;
+  }
+}
+
+/* Tablet and Mobile */
+
+@media (max-width: 991.98px) {
+  .hero-content {
+    padding-block: 3rem 0;
+  }
+
+  .hero-visual {
+    padding-bottom: 2.5rem;
+  }
+
+  .hero-visual img {
+    max-width: 460px;
+  }
 }
 
 @media (max-width: 767.98px) {
-    .hero-content {
-        padding-block: 3rem 1.5rem;
-    }
+  .hero-content {
+    padding-block: 2.5rem 0;
+  }
 
-    .hero-title {
-        font-size: 2.3rem;
-    }
+  .hero-title {
+    font-size: clamp(2rem, 7vw, 2.5rem);
+  }
+
+  .hero-description {
+    font-size: 0.9rem;
+  }
+
+  .hero-visual img {
+    max-width: 100%;
+  }
 }

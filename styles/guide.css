@@ -1,0 +1,77 @@
+
+/* CommuteCare Guide Section */
+
+.commutecare-guide {
+  background: #ffffff;
+}
+
+.guide-box {
+  background: #eaf2ff;
+  border-radius: 12px;
+  padding: 24px 28px;
+}
+
+/* Guide Icon */
+
+.guide-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #155edf;
+  font-size: 1.25rem;
+}
+
+/* Guide Text */
+
+.guide-title {
+  color: #152e50;
+  font-family: "DM Sans", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.guide-description {
+  color: #64748b;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* Read the Guide Button */
+
+.guide-button {
+  flex-shrink: 0;
+  padding: 10px 18px;
+  background: #ffffff;
+  border: 1px solid #dbe5f1;
+  border-radius: 8px;
+  color: #155edf;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.guide-button:hover {
+  background: #f8fbff;
+  border-color: #155edf;
+  color: #155edf;
+}
+
+/* Mobile Responsiveness */
+
+@media (max-width: 767.98px) {
+  .guide-box {
+    padding: 20px;
+  }
+
+  .guide-title {
+    font-size: 1rem;
+  }
+
+  .guide-button {
+    width: 100%;
+    text-align: center;
+  }
+}

@@ -1,66 +1,86 @@
-/* Scam category cards use a quieter surface to separate learning content from the hero. */
+
+/* CommuteCare Report Categories */
+
 .scam-types {
-  background: #f0f3ed;
+  background: #ffffff;
 }
 
 .scam-types-heading {
   max-width: 640px;
 }
 
-.scam-types-kicker {
-  color: #71824b;
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-}
-
 .scam-types-title {
-  color: var(--ink);
-  font-family: var(--display-font);
-  font-size: clamp(2rem, 4vw, 3rem);
-  line-height: 1.1;
+  color: #152e50;
+  font-family: "DM Sans", sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .scam-types-intro {
-  color: #59635e;
-  line-height: 1.7;
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
+/* Category Cards */
+
 .scam-card {
-  padding: 1.5rem;
-  border: 1px solid #e0e5dc;
-  border-radius: 4px;
-  background: #fff;
-  transition: border-color 160ms ease, transform 160ms ease;
+  padding: 1.25rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #ffffff;
+  transition: border-color 160ms ease,
+              transform 160ms ease,
+              box-shadow 160ms ease;
 }
 
 .scam-card:hover {
   transform: translateY(-3px);
-  border-color: #b5c392;
+  border-color: #155edf;
+  box-shadow: 0 4px 12px rgba(21, 94, 223, 0.08);
 }
+
+/* Blue Category Icons */
 
 .scam-icon {
   display: grid;
-  width: 44px;
-  height: 44px;
-  margin-bottom: 1.25rem;
+  width: 36px;
+  height: 36px;
+  margin-bottom: 1rem;
   place-items: center;
-  border-radius: 4px;
-  background: #eaf1db;
-  color: #314128;
-  font-size: 1.25rem;
+  border-radius: 8px;
+  background: #eaf2ff;
+  color: #155edf;
+  font-size: 1.1rem;
 }
+
+/* Category Titles */
 
 .scam-card-title {
-  margin-bottom: 0.5rem;
-  color: var(--ink);
-  font-family: var(--display-font);
-  font-size: 1.2rem;
+  margin-bottom: 0;
+  color: #152e50;
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.4;
 }
 
-.scam-card-description {
-  color: #59635e;
-  font-size: 0.95rem;
-  line-height: 1.65;
+/* Mobile Responsiveness */
+
+@media (max-width: 767.98px) {
+  .scam-card {
+    padding: 1rem;
+  }
+
+  .scam-card-title {
+    font-size: 0.85rem;
+  }
+
+  .scam-icon {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

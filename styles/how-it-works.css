@@ -1,77 +1,79 @@
-/* A connected sequence turns the three steps into one easy-to-scan process. */
+
+/* CommuteCare How It Works Section */
+
 .how-it-works {
-  background: #fff;
+  background: #f4f8fc;
 }
 
 .how-heading {
   max-width: 640px;
 }
 
-.how-kicker {
-  color: #71824b;
-  font-size: 0.75rem;
-}
-
 .how-title {
-  color: var(--ink);
-  font-family: var(--display-font);
-  font-size: clamp(2rem, 4vw, 3rem);
-  line-height: 1.1;
+  color: #152e50;
+  font-family: "DM Sans", sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  line-height: 1.2;
 }
 
-.how-intro,
-.step-description {
-  color: #59635e;
-  line-height: 1.7;
+.how-description {
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
+
+/* Three Steps */
 
 .how-steps::before {
-  position: absolute;
-  z-index: 0;
-  top: 47px;
-  right: 16.6667%;
-  left: 16.6667%;
-  height: 2px;
-  background: #dfe6d2;
-  content: "";
+  display: none;
 }
 
 .how-step {
   position: relative;
-  z-index: 1;
-  background: #fff;
-  text-align: center;
+  height: 100%;
+  background: transparent;
+  text-align: left;
 }
 
+/* Blue Step Number */
+
 .step-number {
-  display: grid;
-  width: 48px;
-  height: 48px;
-  margin: 0 auto 1.25rem;
-  position: relative;
-  z-index: 1;
+  display: inline-grid;
+  width: 36px;
+  height: 36px;
+  margin-bottom: 1rem;
   place-items: center;
-  border: 2px solid #314128;
-  border-radius: 50%;
-  background: var(--green);
-  color: var(--ink);
-  font-family: var(--display-font);
-  font-size: 0.9rem;
+  border: none;
+  border-radius: 8px;
+  background: #eaf2ff;
+  color: #155edf;
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.85rem;
   font-weight: 700;
 }
 
+/* Step Titles */
+
 .step-title {
   margin-bottom: 0.5rem;
-  color: var(--ink);
-  font-family: var(--display-font);
-  font-size: 1.25rem;
+  color: #152e50;
+  font-family: "DM Sans", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
 }
+
+/* Step Descriptions */
 
 .step-description {
   max-width: 320px;
-  margin-right: auto;
-  margin-left: auto;
+  margin: 0;
+  color: #64748b;
+  font-size: 0.9rem;
+  line-height: 1.6;
 }
+
+/* Mobile Responsiveness */
 
 @media (max-width: 767.98px) {
   .how-heading {
@@ -82,13 +84,27 @@
     row-gap: 2rem !important;
   }
 
-  .how-steps::before {
-    top: 48px;
-    right: auto;
-    bottom: 24px;
-    left: 50%;
-    width: 2px;
-    height: auto;
-    transform: translateX(-50%);
+  .how-step {
+    text-align: left;
   }
+
+  .step-description {
+    max-width: 100%;
+  }
+}
+
+.step-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.step-icon {
+  color: #64748b;
+  font-size: 1rem;
+}
+
+.step-number {
+  margin-bottom: 0;
 }
