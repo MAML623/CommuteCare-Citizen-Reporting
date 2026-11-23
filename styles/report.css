@@ -1,88 +1,265 @@
 
-/* REPORT PAGE */
-.report-hero {
-    background: #f0f6ff;
-    padding: 55px 0;
-    color: #152e50;
+
+.report-page {
+    --report-blue: #155edf;
+    --report-navy: #152e50;
+    --report-light: #f0f6ff;
+    --report-ink: #152e50;
+    --report-muted: #64748b;
+    --report-line: #dce6f3;
+    color: var(--report-ink);
+    background: var(--report-light);
 }
 
-    .report-hero::before {
-        display: none;
+/* =========================================
+   PAGE HEADING
+========================================= */
+
+.report-heading-wrap {
+    position: relative;
+    overflow: hidden;
+    padding: 55px 0 38px;
+    background: var(--report-light);
+}
+
+    .report-heading-wrap::after {
+        content: "";
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        right: -90px;
+        top: -155px;
+        border: 42px solid rgba(21, 94, 223, 0.09);
+        border-radius: 50%;
+        pointer-events: none;
     }
 
+.report-heading {
+    position: relative;
+    z-index: 1;
+}
+
 .report-eyebrow {
-    color: #155edf;
-    letter-spacing: 1px;
-}
-
-.report-hero-title {
-    color: #152e50;
-    font-size: clamp(2rem, 4vw, 3rem);
+    margin: 0 0 12px;
+    color: var(--report-blue);
+    font-size: 0.76rem;
     font-weight: 700;
+    letter-spacing: 0.13em;
 }
 
-.report-hero-copy {
-    color: #64748b;
+.report-heading h1 {
+    margin: 0;
+    color: var(--report-navy);
+    font: 700 clamp(2.1rem, 4vw, 3.2rem)/1.08 var(--display-font);
+    letter-spacing: -0.045em;
 }
+
+.report-heading > p:not(.report-eyebrow) {
+    margin: 12px 0 32px;
+    color: var(--report-muted);
+    font-size: 1.02rem;
+}
+
+/* =========================================
+   PROGRESS STEPS
+========================================= */
+
+.report-steps {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+    .report-steps li {
+        position: relative;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 9px;
+        color: #8493a8;
+        text-align: center;
+        font-size: 0.8rem;
+    }
+
+        .report-steps li:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            z-index: 0;
+            top: 18px;
+            left: calc(50% + 23px);
+            width: calc(100% - 38px);
+            height: 2px;
+            background: #d5e1f2;
+        }
+
+        .report-steps li span {
+            z-index: 1;
+            display: grid;
+            width: 38px;
+            height: 38px;
+            place-items: center;
+            border: 1px solid #d5e1f2;
+            border-radius: 50%;
+            background: #fff;
+            color: #8493a8;
+            font-weight: 700;
+            transition: 0.2s ease;
+        }
+
+        .report-steps li.active {
+            color: var(--report-navy);
+        }
+
+            .report-steps li.active span {
+                border-color: var(--report-blue);
+                background: var(--report-blue);
+                color: #fff;
+                box-shadow: 0 0 0 5px rgba(21, 94, 223, 0.12);
+            }
+
+    .report-steps b {
+        font-weight: 600;
+    }
+
+/* =========================================
+   FORM BACKGROUND AND CONTAINER
+========================================= */
 
 .report-form-section {
-    background: #f5f8fd;
-}
-
-.report-form-intro {
-    max-width: 900px;
-}
-
-.report-form-title {
-    color: #152e50;
-    font-weight: 700;
+    padding: 25px 0 70px;
+    background: var(--report-light);
 }
 
 .report-form {
-    max-width: 900px;
-    margin: auto;
-    padding: clamp(20px, 4vw, 40px);
-    border: 1px solid #dbe5f1;
-    border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(21, 46, 80, 0.06);
+    max-width: 1060px;
+    margin: 0 auto;
+    padding: clamp(22px, 4vw, 42px);
+    border: 1px solid #e1eaf5;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 15px 45px rgba(21, 46, 80, 0.07);
 }
 
-.section-heading {
-    color: #155edf;
-    font-size: 1.2rem;
-    font-weight: 700;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #dbeafe;
+/* =========================================
+   FORM SECTIONS
+========================================= */
+
+.form-section {
+    padding: 0 0 32px;
+    margin: 0 0 30px;
+    border-bottom: 1px solid var(--report-line);
 }
+
+    .form-section:last-child {
+        padding-bottom: 0;
+        margin-bottom: 0;
+        border-bottom: 0;
+    }
+
+.section-title-row {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-bottom: 23px;
+}
+
+.section-icon {
+    display: grid;
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border-radius: 12px;
+    background: #e6efff;
+    color: var(--report-blue);
+    font-size: 1.15rem;
+}
+
+.section-title-row h2 {
+    margin: 0 0 4px;
+    color: var(--report-navy);
+    font: 700 1.15rem/1.2 var(--display-font);
+}
+
+.section-title-row p {
+    margin: 0;
+    color: var(--report-muted);
+    font-size: 0.84rem;
+}
+
+/* =========================================
+   INPUT FIELDS
+========================================= */
 
 .report-form .form-label {
-    color: #152e50;
-    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--report-navy);
+    font-size: 0.87rem;
+    font-weight: 700;
 }
+
+    .report-form .form-label > span {
+        color: #e05252;
+    }
+
+    .report-form .form-label small {
+        color: var(--report-muted);
+        font-weight: 400;
+    }
 
 .report-form .form-control,
 .report-form .form-select {
-    min-height: 45px;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
+    min-height: 47px;
+    border: 1px solid #d7e1ef;
+    border-radius: 10px;
+    background-color: #fff;
+    color: var(--report-navy);
+    font-size: 0.9rem;
+    transition: 0.2s ease;
 }
 
 .report-form textarea.form-control {
-    min-height: 120px;
+    min-height: 110px;
+    resize: vertical;
+}
+
+.report-form .form-control::placeholder {
+    color: #a0aec0;
+}
+
+.report-form .form-control:hover,
+.report-form .form-select:hover {
+    border-color: #9db9e8;
 }
 
 .report-form .form-control:focus,
 .report-form .form-select:focus {
-    border-color: #155edf;
+    border-color: var(--report-blue);
     box-shadow: 0 0 0 3px rgba(21, 94, 223, 0.12);
 }
 
-/* SEVERITY BUTTONS */
+.form-hint {
+    margin: 7px 0 0;
+    color: #8795a8;
+    font-size: 0.76rem;
+}
+
+/* =========================================
+   SEVERITY LEVEL
+========================================= */
+
 .severity-options {
     display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
+    gap: 10px;
 }
+
+    .severity-options label {
+        flex: 1;
+        cursor: pointer;
+    }
 
     .severity-options input {
         position: absolute;
@@ -90,71 +267,310 @@
         pointer-events: none;
     }
 
-    .severity-options label {
-        flex: 1;
-        min-width: 45px;
-        cursor: pointer;
-    }
-
     .severity-options span {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 45px;
-        border: 1px solid #cbd5e1;
-        border-radius: 6px;
-        color: #155edf;
-        background: white;
+        display: grid;
+        min-height: 47px;
+        place-items: center;
+        border: 1px solid #d7e1ef;
+        border-radius: 10px;
+        background: #fff;
+        color: var(--report-navy);
         font-weight: 700;
-        transition: 0.2s;
-    }
-
-    .severity-options input:checked + span {
-        background: #155edf;
-        border-color: #155edf;
-        color: white;
+        transition: 0.2s ease;
     }
 
     .severity-options label:hover span {
-        border-color: #155edf;
+        border-color: var(--report-blue);
+        background: #f5f8ff;
+    }
+
+    .severity-options input:checked + span {
+        border-color: var(--report-blue);
+        background: var(--report-blue);
+        color: #fff;
+        box-shadow: 0 3px 10px rgba(21, 94, 223, 0.2);
     }
 
     .severity-options input:focus-visible + span {
-        outline: 3px solid #93c5fd;
-        outline-offset: 2px;
+        outline: 3px solid rgba(21, 94, 223, 0.2);
+        outline-offset: 3px;
     }
 
 .severity-labels {
     display: flex;
     justify-content: space-between;
-    color: #64748b;
-    font-size: 12px;
-    margin-top: 7px;
+    margin-top: 6px;
+    color: #8795a8;
+    font-size: 0.72rem;
 }
 
-/* SUBMIT BUTTON */
-.report-submit {
-    min-height: 48px;
-    padding: 10px 25px;
-    background: #155edf;
-    border-color: #155edf;
-    color: white;
-    border-radius: 6px;
-    font-weight: 600;
+/* =========================================
+   OPTIONAL PHOTO UPLOAD
+========================================= */
+
+.upload-area {
+    display: flex;
+    min-height: 160px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 9px;
+    padding: 25px;
+    border: 1.5px dashed #9bb8e8;
+    border-radius: 13px;
+    background: #f7faff;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s ease;
 }
 
-    .report-submit:hover {
-        background: #104abd;
-        border-color: #104abd;
-        color: white;
+    .upload-area:hover,
+    .upload-area:focus-within {
+        border-color: var(--report-blue);
+        background: #edf4ff;
     }
 
-@media (max-width: 575.98px) {
+    .upload-area > i {
+        color: var(--report-blue);
+        font-size: 2.2rem;
+    }
+
+    .upload-area strong {
+        color: var(--report-navy);
+        font-size: 0.9rem;
+    }
+
+    .upload-area em {
+        color: var(--report-blue);
+        font-style: normal;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    .upload-area > span {
+        color: var(--report-muted);
+        font-size: 0.76rem;
+    }
+
+.selected-file {
+    margin: 9px 0 0;
+    color: var(--report-muted);
+    font-size: 0.79rem;
+}
+
+/* =========================================
+   PRIVACY CONFIRMATION
+========================================= */
+
+.report-form .form-check-input {
+    border-color: #b7c6da;
+    cursor: pointer;
+}
+
+    .report-form .form-check-input:checked {
+        border-color: var(--report-blue);
+        background-color: var(--report-blue);
+    }
+
+    .report-form .form-check-input:focus {
+        border-color: var(--report-blue);
+        box-shadow: 0 0 0 3px rgba(21, 94, 223, 0.12);
+    }
+
+.form-check-label {
+    color: #52647d;
+    font-size: 0.85rem;
+}
+
+/* =========================================
+   SUBMIT BUTTON
+========================================= */
+
+.report-submit {
+    min-height: 49px;
+    padding: 12px 27px;
+    border: 1px solid var(--report-blue);
+    border-radius: 10px;
+    background: var(--report-blue);
+    color: #fff;
+    font-weight: 700;
+    transition: 0.2s ease;
+}
+
+    .report-submit:hover,
+    .report-submit:focus {
+        border-color: var(--report-navy);
+        background: var(--report-navy);
+        color: #fff;
+        box-shadow: 0 5px 15px rgba(21, 46, 80, 0.18);
+    }
+
+.submit-note {
+    color: var(--report-muted);
+    font-size: 0.78rem;
+}
+
+/* =========================================
+   FORM STATUS
+========================================= */
+
+#report-form-status:not([hidden]) {
+    padding: 13px 15px;
+    border: 1px solid #f1caca;
+    border-radius: 9px;
+    background: #fff3f3;
+    color: #a53b3b;
+    font-size: 0.88rem;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.site-footer {
+    padding: 24px 0;
+    background: var(--report-navy);
+    color: #e2eaf5;
+    font-size: 0.82rem;
+    text-align: center;
+}
+
+/* =========================================
+   TABLET RESPONSIVENESS
+========================================= */
+
+@media (max-width: 767.98px) {
+
+    .report-heading-wrap {
+        padding: 38px 0 28px;
+    }
+
+    .report-steps {
+        gap: 3px;
+    }
+
+        .report-steps li {
+            font-size: 0.65rem;
+        }
+
+            .report-steps li span {
+                width: 32px;
+                height: 32px;
+            }
+
+            .report-steps li:not(:last-child)::after {
+                top: 15px;
+                left: calc(50% + 18px);
+                width: calc(100% - 26px);
+            }
+
+    .report-form-section {
+        padding: 18px 0 40px;
+    }
+}
+
+/* =========================================
+   MOBILE RESPONSIVENESS
+========================================= */
+
+@media (max-width: 480px) {
+
+    .report-heading h1 {
+        font-size: 2.1rem;
+    }
+
+    .report-heading > p:not(.report-eyebrow) {
+        font-size: 0.9rem;
+    }
+
+    .report-steps b {
+        max-width: 62px;
+        line-height: 1.2;
+    }
+
     .report-form {
-        padding: 20px 16px;
+        padding: 21px 16px;
+        border-radius: 14px;
+    }
+
+    .section-title-row {
+        align-items: flex-start;
+    }
+
+    .section-icon {
+        flex-basis: 36px;
+        width: 36px;
+        height: 36px;
     }
 
     .severity-options {
-        gap: 7px;
+        gap: 6px;
+    }
+
+    .upload-area {
+        padding: 20px 12px;
+    }
+
+    .report-submit {
+        width: 100%;
     }
 }
+
+/* =========================================
+   COMPLETED PROGRESS STEPS
+========================================= */
+
+.report-steps li.completed {
+    color: var(--report-blue);
+}
+
+    .report-steps li.completed span {
+        border-color: var(--report-blue);
+        background: var(--report-blue);
+        color: #fff;
+    }
+
+    /* Completed connecting lines */
+    .report-steps li.completed:not(:last-child)::after {
+        background: var(--report-blue);
+    }
+
+/* Active step */
+.report-steps li.active {
+    color: var(--report-navy);
+}
+
+    .report-steps li.active span {
+        border-color: var(--report-blue);
+        background: var(--report-blue);
+        color: #fff;
+        box-shadow: 0 0 0 5px rgba(21, 94, 223, 0.12);
+    }
+
+
+/* COMPLETED PROGRESS STEPS */
+.report-steps li.completed {
+    color: var(--report-blue);
+}
+
+    .report-steps li.completed span {
+        background: var(--report-blue);
+        border-color: var(--report-blue);
+        color: #fff;
+    }
+
+    .report-steps li.completed:not(:last-child)::after {
+        background: var(--report-blue);
+    }
+
+/* ACTIVE PROGRESS STEP */
+.report-steps li.active {
+    color: var(--report-navy);
+}
+
+    .report-steps li.active span {
+        background: var(--report-blue);
+        border-color: var(--report-blue);
+        color: #fff;
+        box-shadow: 0 0 0 4px rgba(21, 94, 223, 0.15);
+    }

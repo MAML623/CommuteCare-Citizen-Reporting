@@ -1,245 +1,555 @@
+
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#f7f7f2">
-    <meta name="description" content="Report a suspicious link, message, or online incident to the Suri community.">
-    <title>Submit a Report | Suri</title>
+    <meta name="theme-color" content="#155edf">
+    <meta name="description" content="Report an issue affecting commuters, sidewalks, stations, and transport facilities.">
 
-    <!-- Shared Bootstrap styles keep this page consistent with the homepage. -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Report an Issue | CommuteCare</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="styles/menu.css">
     <link rel="stylesheet" href="styles/report.css">
     <link rel="stylesheet" href="styles/footer.css">
-    <script src="scripts/hero.js" defer></script>
+
     <script src="scripts/menu.js" defer></script>
     <script src="scripts/report.js" defer></script>
-  </head>
-  <body>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <header class="navbar navbar-expand-md sticky-top bg-white border-bottom px-3 px-lg-5">
+        <div class="container-fluid">
+
+            <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" href="index.html">
+                <span class="bg-primary text-white rounded-2 px-2 py-1">
+                    <i class="bi bi-link-45deg"></i>
+                </span>
+                <span>CommuteCare</span>
+            </a>
+
+            <button class="navbar-toggler"
+                    type="button"
+                    aria-label="Open navigation menu"
+                    aria-expanded="false"
+                    aria-controls="site-navigation">
+
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <nav class="collapse navbar-collapse justify-content-md-end"
+                 id="site-navigation"
+                 aria-label="Main navigation">
+
+                <div class="navbar-nav align-items-md-center gap-md-4">
+                    <a class="nav-link" href="index.html">Home</a>
+                    <a class="nav-link" href="index.html#how-it-works">How It Works</a>
+                    <a class="nav-link" href="faq.html">FAQ</a>
+                    <a class="nav-link" href="index.html#contact">Contact</a>
+
+                    <a class="btn btn-outline-primary ms-md-2" href="track.html">
+                        <i class="bi bi-search me-1"></i>
+                        Track Report
+                    </a>
+                </div>
+            </nav>
+
+        </div>
+    </header>
 
 
+    <!-- MAIN CONTENT -->
+    <main class="report-page">
 
-      <header class="navbar navbar-expand-md sticky-top bg-white border-bottom px-3 px-lg-5 commute-navbar">
-          <div class="container-fluid">
+        <!-- PAGE HEADING -->
+        <section class="report-heading-wrap">
+            <div class="container report-heading">
 
-              <!-- Logo and Brand -->
-              <a class="navbar-brand d-flex align-items-center gap-2 fw-bold"
-                 href="index.html">
-                  <span class="brand-icon">
-                      <i class="bi bi-link-45deg"></i>
-                  </span>
-                  <span class="brand-name">CommuteCare</span>
-              </a>
+                <p class="report-eyebrow">
+                    <i class="bi bi-geo-alt-fill me-2"></i>
+                    COMMUNITY REPORTING
+                </p>
 
-              <!-- Mobile Menu Button -->
-              <button class="navbar-toggler" type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#site-navigation"
-                      aria-controls="site-navigation"
-                      aria-expanded="false"
-                      aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-              </button>
+                <h1>Report an Issue</h1>
 
-              <!-- Navigation Links -->
-              <nav class="collapse navbar-collapse justify-content-md-end"
-                   id="site-navigation" aria-label="Main navigation">
+                <p>
+                    Help make our everyday commute safer, cleaner, and more accessible.
+                </p>
 
-                  <div class="navbar-nav align-items-md-center gap-md-4">
+                <!-- PROGRESS STEPS -->
+                <ol class="report-steps" aria-label="Report submission steps">
 
-                      <a class="nav-link" href="index.html">Home</a>
-                      <a class="nav-link" href="index.html#how-it-works">How It Works</a>
-                      <a class="nav-link" href="faq.html">FAQ</a>
-                      <a class="nav-link" href="index.html#contact">Contact</a>
+                    <li class="active">
+                        <span>1</span>
+                        <b>Report Information</b>
+                    </li>
 
-                      <a class="btn btn-outline-primary ms-md-2 track-btn"
-                         href="track.html">
-                          <i class="bi bi-search me-1"></i>
-                          Track Report
-                      </a>
+                    <li>
+                        <span>2</span>
+                        <b>Location</b>
+                    </li>
 
-                  </div>
-              </nav>
+                    <li>
+                        <span>3</span>
+                        <b>Reporter Information</b>
+                    </li>
 
-          </div>
-      </header>
+                    <li>
+                        <span>4</span>
+                        <b>Upload Evidence</b>
+                    </li>
+
+                    <li>
+                        <span>5</span>
+                        <b>Review &amp; Submit</b>
+                    </li>
+
+                </ol>
+
+            </div>
+        </section>
 
 
-      <main>
-          <section class="report-hero d-flex align-items-center" aria-labelledby="report-title">
-              <div class="container">
-                  <p class="report-eyebrow text-uppercase fw-bold mb-2">Community report</p>
-                  <h1 class="report-hero-title mb-2" id="report-title">Report something suspicious</h1>
-                  <p class="report-hero-copy mb-0">Share the details so the community can review what happened.</p>
-              </div>
-          </section>
+        <!-- REPORT FORM -->
+        <section class="report-form-section">
+            <div class="container">
 
-          <section class="report-form-section py-5" aria-labelledby="report-form-title">
-              <div class="container">
-                  <div class="report-form-intro mb-4">
-                      <h2 class="report-form-title mb-2" id="report-form-title">Tell us what happened</h2>
-                      <p class="text-secondary mb-0">Fields marked with <span aria-hidden="true">*</span> are required.</p>
-                  </div>
+                <form class="report-form" id="report-form" novalidate>
 
-                  <form class="report-form bg-white" id="report-form" novalidate>
-                      <div class="row g-4">
+                    <!-- REPORT INFORMATION -->
+                    <section class="form-section" aria-labelledby="report-info-title">
 
-                          <!-- REPORT INFORMATION -->
-                          <div class="col-12">
-                              <h3 class="section-heading">Report Information</h3>
-                              <p class="text-secondary small">Describe the road or transportation issue.</p>
-                          </div>
+                        <div class="section-title-row">
 
-                          <div class="col-12">
-                              <label class="form-label" for="report-category">Category *</label>
-                              <select class="form-select" id="report-category" name="category" required>
-                                  <option value="">Select a category</option>
-                                  <option value="Pothole">Pothole</option>
-                                  <option value="Damaged Road">Damaged Road</option>
-                                  <option value="Flooding">Flooding</option>
-                                  <option value="Road Obstruction">Road Obstruction</option>
-                                  <option value="Broken Streetlight">Broken Streetlight</option>
-                                  <option value="Damaged Sidewalk">Damaged Sidewalk</option>
-                                  <option value="Traffic Signal">Traffic Signal Problem</option>
-                                  <option value="Other">Other</option>
-                              </select>
-                          </div>
+                            <span class="section-icon">
+                                <i class="bi bi-clipboard2-check-fill"></i>
+                            </span>
 
-                          <div class="col-12">
-                              <label class="form-label" for="incident-description">Description *</label>
-                              <textarea class="form-control" id="incident-description"
-                                        name="description" rows="4"
-                                        placeholder="Describe the issue and how it affects commuters..."
-                                        required></textarea>
-                          </div>
+                            <div>
+                                <h2 id="report-info-title">Report Information</h2>
+                                <p>Describe the issue you encountered.</p>
+                            </div>
 
-                          <div class="col-md-6">
-                              <label class="form-label" for="date-observed">Date Observed *</label>
-                              <input class="form-control" type="date"
-                                     id="date-observed" name="date-observed" required>
-                          </div>
+                        </div>
 
-                          <div class="col-md-6">
-                              <label class="form-label" for="time-observed">Time Observed *</label>
-                              <input class="form-control" type="time"
-                                     id="time-observed" name="time-observed" required>
-                          </div>
 
-                          <!-- SEVERITY -->
-                          <div class="col-12">
-                              <label class="form-label">Severity (1–5) *</label>
-                              <p class="small text-secondary">How serious is the reported issue?</p>
+                        <div class="row g-3">
 
-                              <div class="severity-options">
-                                  <label>
-                                      <input type="radio" name="severity" value="1" required>
-                                      <span>1</span>
-                                  </label>
-                                  <label>
-                                      <input type="radio" name="severity" value="2">
-                                      <span>2</span>
-                                  </label>
-                                  <label>
-                                      <input type="radio" name="severity" value="3">
-                                      <span>3</span>
-                                  </label>
-                                  <label>
-                                      <input type="radio" name="severity" value="4">
-                                      <span>4</span>
-                                  </label>
-                                  <label>
-                                      <input type="radio" name="severity" value="5">
-                                      <span>5</span>
-                                  </label>
-                              </div>
-                              <div class="severity-labels">
-                                  <span>Minor</span>
-                                  <span>Severe</span>
-                              </div>
-                          </div>
+                            <!-- ISSUE CATEGORY -->
+                            <div class="col-lg-5">
 
-                          <!-- LOCATION -->
-                          <div class="col-12">
-                              <h3 class="section-heading">Location</h3>
-                              <p class="text-secondary small">Where is the issue located?</p>
-                          </div>
+                                <label class="form-label" for="report-category">
+                                    Issue Category <span>*</span>
+                                </label>
 
-                          <div class="col-md-6">
-                              <label class="form-label" for="location-text">Address *</label>
-                              <input class="form-control" id="location-text"
-                                     name="location" type="text"
-                                     placeholder="Street, barangay, city / municipality" required>
-                          </div>
+                                <select class="form-select"
+                                        id="report-category"
+                                        name="category"
+                                        required>
 
-                          <div class="col-md-6">
-                              <label class="form-label" for="landmark">Nearby Landmark</label>
-                              <input class="form-control" id="landmark"
-                                     name="landmark" type="text"
-                                     placeholder="Nearby store, school, or building">
-                          </div>
+                                    <option value="">Select a category</option>
+                                    <option>Garbage Accumulation</option>
+                                    <option>Flooding</option>
+                                    <option>Damaged Sidewalk</option>
+                                    <option>Broken Streetlight</option>
+                                    <option>Road Obstruction</option>
+                                    <option>Electrical Hazard</option>
+                                    <option>Damaged Road</option>
+                                    <option>Other</option>
 
-                          <!-- REPORTER -->
-                          <div class="col-12">
-                              <h3 class="section-heading">Reporter Information</h3>
-                              <p class="text-secondary small">Your contact details help us follow up.</p>
-                          </div>
+                                </select>
 
-                          <div class="col-12">
-                              <label class="form-label" for="reporter-name">Full Name *</label>
-                              <input class="form-control" id="reporter-name"
-                                     name="reporter-name" type="text"
-                                     placeholder="Your full name" required>
-                          </div>
+                                <div class="invalid-feedback">
+                                    Please select an issue category.
+                                </div>
 
-                          <div class="col-md-6">
-                              <label class="form-label" for="email-address">Email Address *</label>
-                              <input class="form-control" id="email-address"
-                                     name="email" type="email"
-                                     placeholder="you@example.com" required>
-                          </div>
+                            </div>
 
-                          <div class="col-md-6">
-                              <label class="form-label" for="contact-number">Contact Number *</label>
-                              <input class="form-control" id="contact-number"
-                                     name="contact" type="tel"
-                                     placeholder="09XX XXX XXXX" required>
-                          </div>
 
-                          <!-- EVIDENCE -->
-                          <div class="col-12">
-                              <h3 class="section-heading">Upload Evidence</h3>
-                              <label class="form-label" for="report-screenshot">Photo Evidence *</label>
-                              <input class="form-control" id="report-screenshot"
-                                     name="photo" type="file"
-                                     accept="image/png,image/jpeg,image/webp" required>
-                              <div class="form-text">Upload a photo of the reported issue (PNG, JPG, or WebP).</div>
-                          </div>
+                            <!-- DESCRIPTION -->
+                            <div class="col-lg-7">
 
-                          <!-- REVIEW -->
-                          <div class="col-12">
-                              <h3 class="section-heading">Review & Submit</h3>
-                              <div class="form-check">
-                                  <input class="form-check-input" type="checkbox"
-                                         id="privacy-consent" required>
-                                  <label class="form-check-label" for="privacy-consent">
-                                      I confirm that the information provided is accurate.
-                                  </label>
-                              </div>
-                          </div>
+                                <label class="form-label" for="incident-description">
+                                    Description <span>*</span>
+                                </label>
 
-                          <div class="col-12">
-                              <button class="btn btn-primary report-submit" type="submit">
-                                  Submit Report →
-                              </button>
-                              <p id="report-form-status" class="mt-3" role="status"></p>
-                          </div>
+                                <textarea class="form-control"
+                                          id="incident-description"
+                                          name="description"
+                                          rows="3"
+                                          maxlength="1000"
+                                          placeholder="Describe the issue and how it affects commuters..."
+                                          required></textarea>
 
-                      </div>
-                  </form>
+                                <div class="form-hint">
+                                    Include useful details such as the exact situation or possible danger.
+                                </div>
 
+                            </div>
+
+
+                            <!-- DATE OBSERVED -->
+                            <div class="col-md-3">
+
+                                <label class="form-label" for="date-observed">
+                                    Date Observed <span>*</span>
+                                </label>
+
+                                <input class="form-control"
+                                       type="date"
+                                       id="date-observed"
+                                       name="date-observed"
+                                       required>
+
+                            </div>
+
+
+                            <!-- TIME OBSERVED -->
+                            <div class="col-md-3">
+
+                                <label class="form-label" for="time-observed">
+                                    Time Observed <span>*</span>
+                                </label>
+
+                                <input class="form-control"
+                                       type="time"
+                                       id="time-observed"
+                                       name="time-observed"
+                                       required>
+
+                            </div>
+
+
+                            <!-- SEVERITY LEVEL -->
+                            <div class="col-md-6">
+
+                                <label class="form-label d-block">
+                                    Severity Level <span>*</span>
+                                </label>
+
+                                <div class="severity-options"
+                                     role="radiogroup"
+                                     aria-label="Severity level">
+
+                                    <label>
+                                        <input type="radio" name="severity" value="1" required>
+                                        <span>1</span>
+                                    </label>
+
+                                    <label>
+                                        <input type="radio" name="severity" value="2">
+                                        <span>2</span>
+                                    </label>
+
+                                    <label>
+                                        <input type="radio" name="severity" value="3">
+                                        <span>3</span>
+                                    </label>
+
+                                    <label>
+                                        <input type="radio" name="severity" value="4">
+                                        <span>4</span>
+                                    </label>
+
+                                    <label>
+                                        <input type="radio" name="severity" value="5">
+                                        <span>5</span>
+                                    </label>
+
+                                </div>
+
+                                <div class="severity-labels">
+                                    <span>Minor</span>
+                                    <span>Severe</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </section>
+
+
+                    <!-- LOCATION -->
+                    <section class="form-section" aria-labelledby="location-title">
+
+                        <div class="section-title-row">
+
+                            <span class="section-icon">
+                                <i class="bi bi-pin-map-fill"></i>
+                            </span>
+
+                            <div>
+                                <h2 id="location-title">Location</h2>
+                                <p>Help us identify where the issue happened.</p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="row g-3">
+
+                            <!-- ADDRESS -->
+                            <div class="col-md-6">
+
+                                <label class="form-label" for="location-text">
+                                    Address <span>*</span>
+                                </label>
+
+                                <input class="form-control"
+                                       id="location-text"
+                                       name="location"
+                                       type="text"
+                                       placeholder="Street, barangay, city / municipality"
+                                       required>
+
+                            </div>
+
+
+                            <!-- NEARBY LANDMARK -->
+                            <div class="col-md-6">
+
+                                <label class="form-label" for="landmark">
+                                    Nearby Landmark <small>(optional)</small>
+                                </label>
+
+                                <input class="form-control"
+                                       id="landmark"
+                                       name="landmark"
+                                       type="text"
+                                       placeholder="Nearby station, terminal, or building">
+
+                            </div>
+
+                        </div>
+
+                        <p class="form-hint mt-3 mb-0">
+                            Please provide a specific address or nearby landmark so the concerned office can locate the issue.
+                        </p>
+
+                    </section>
+
+
+                    <!-- REPORTER INFORMATION -->
+                    <section class="form-section" aria-labelledby="reporter-title">
+
+                        <div class="section-title-row">
+
+                            <span class="section-icon">
+                                <i class="bi bi-person-fill"></i>
+                            </span>
+
+                            <div>
+                                <h2 id="reporter-title">Reporter Information</h2>
+                                <p>Your contact details may be used for report verification or updates.</p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="row g-3">
+
+                            <!-- FULL NAME -->
+                            <div class="col-md-4">
+
+                                <label class="form-label" for="reporter-name">
+                                    Full Name <span>*</span>
+                                </label>
+
+                                <input class="form-control"
+                                       id="reporter-name"
+                                       name="reporter-name"
+                                       type="text"
+                                       placeholder="Your full name"
+                                       required>
+
+                            </div>
+
+
+                            <!-- EMAIL -->
+                            <div class="col-md-4">
+
+                                <label class="form-label" for="email-address">
+                                    Email Address <span>*</span>
+                                </label>
+
+                                <input class="form-control"
+                                       id="email-address"
+                                       name="email"
+                                       type="email"
+                                       placeholder="you@example.com"
+                                       required>
+
+                            </div>
+
+
+                            <!-- CONTACT NUMBER -->
+                            <div class="col-md-4">
+
+                                <label class="form-label" for="contact-number">
+                                    Contact Number <span>*</span>
+                                </label>
+
+                                <input class="form-control"
+                                       id="contact-number"
+                                       name="contact"
+                                       type="tel"
+                                       placeholder="09XX XXX XXXX"
+                                       pattern="^(\+63|0)9\d{9}$"
+                                       required>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- UPLOAD EVIDENCE -->
+                    <section class="form-section" aria-labelledby="evidence-title">
+
+                        <div class="section-title-row">
+
+                            <span class="section-icon">
+                                <i class="bi bi-image-fill"></i>
+                            </span>
+
+                            <div>
+                                <h2 id="evidence-title">
+                                    Upload Evidence <small>(Optional)</small>
+                                </h2>
+
+                                <p>
+                                    You may upload a photo to help explain the reported issue.
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <label class="upload-area" for="report-screenshot">
+
+                            <i class="bi bi-cloud-arrow-up"></i>
+
+                            <strong>
+                                Drag and drop a photo here, or
+                                <em>browse files</em>
+                            </strong>
+
+                            <span>
+                                Optional · JPG, PNG, or WebP · Maximum 10 MB
+                            </span>
+
+                            <input class="visually-hidden"
+                                   id="report-screenshot"
+                                   name="photo"
+                                   type="file"
+                                   accept="image/png,image/jpeg,image/webp">
+
+                        </label>
+
+
+                        <p class="selected-file"
+                           id="selected-file"
+                           aria-live="polite">
+
+                            No file selected (optional)
+
+                        </p>
+
+                    </section>
+
+
+                    <!-- REVIEW AND SUBMIT -->
+                    <section class="form-section review-section"
+                             aria-labelledby="review-title">
+
+                        <div class="section-title-row">
+
+                            <span class="section-icon">
+                                <i class="bi bi-check2-circle"></i>
+                            </span>
+
+                            <div>
+                                <h2 id="review-title">Review &amp; Submit</h2>
+                                <p>Check your information before sending your report.</p>
+                            </div>
+
+                        </div>
+
+
+                        <!-- PRIVACY CONSENT -->
+                        <div class="form-check">
+
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   id="privacy-consent"
+                                   required>
+
+                            <label class="form-check-label" for="privacy-consent">
+
+                                I confirm that the information I provided is accurate to the best of my knowledge.
+
+                            </label>
+
+                        </div>
+
+
+                        <!-- SUBMIT BUTTON -->
+                        <div class="d-flex flex-wrap align-items-center gap-3 mt-4">
+
+                            <button class="btn btn-primary report-submit"
+                                    type="submit">
+
+                                <i class="bi bi-send-fill me-2"></i>
+                                Submit Report
+
+                            </button>
+
+                            <span class="submit-note">
+                                Your report will be saved and assigned a tracking number.
+                            </span>
+
+                        </div>
+
+
+                        <p id="report-form-status"
+                           class="mt-3 mb-0"
+                           role="status"
+                           hidden></p>
+
+                    </section>
+
+                </form>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p class="mb-0">
+                © 2026 CommuteCare. Helping communities build safer journeys.
+            </p>
+
+        </div>
+
+    </footer>
+
+</body>
+</html>
