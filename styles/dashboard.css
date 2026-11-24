@@ -1,0 +1,107 @@
+
+/* CommuteCare Dashboard */
+
+body {
+    background: #f4f8fc;
+    color: #152e50;
+}
+
+.card {
+    border: 1px solid #dbe5f1;
+    border-radius: 12px;
+    background: #ffffff;
+}
+
+.card h2 {
+    color: #155edf;
+}
+
+#reports-heading {
+    color: #152e50;
+}
+
+/* Mobile Dashboard */
+
+@media (max-width: 767.98px) {
+
+    .table-responsive {
+        overflow-x: visible;
+    }
+
+    .table-responsive table,
+    .table-responsive tbody {
+        display: block;
+        width: 100%;
+    }
+
+    /* Visually hide headers while retaining them for accessibility */
+    .table-responsive thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+    }
+
+    /* Turn each report row into a card */
+    .table-responsive tbody tr {
+        display: block;
+        width: 100%;
+        margin-bottom: 15px;
+        padding: 15px;
+        background: #ffffff;
+        border: 1px solid #dbe5f1;
+        border-radius: 12px;
+    }
+
+    .table-responsive tbody td {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        width: 100%;
+        padding: 10px 0;
+        border: none;
+        text-align: right;
+        overflow-wrap: anywhere;
+    }
+
+    .table-responsive tbody td::before {
+        font-weight: 700;
+        color: #152e50;
+        text-align: left;
+        flex: 0 0 35%;
+    }
+
+    /* Mobile field labels */
+    .table-responsive tbody td:nth-child(1)::before {
+        content: "Reference";
+    }
+
+    .table-responsive tbody td:nth-child(2)::before {
+        content: "Category";
+    }
+
+    .table-responsive tbody td:nth-child(3)::before {
+        content: "Status";
+    }
+
+    .table-responsive tbody td:nth-child(4)::before {
+        content: "Source";
+    }
+
+    .table-responsive tbody td:nth-child(5)::before {
+        content: "Action";
+    }
+
+    /* Empty results message */
+    .table-responsive tbody td[colspan] {
+        display: block;
+        text-align: center;
+    }
+
+    .table-responsive tbody td[colspan]::before {
+        display: none;
+    }
+}
