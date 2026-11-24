@@ -185,17 +185,25 @@
                                 </label>
 
                                 <textarea class="form-control"
-                                          id="incident-description"
-                                          name="description"
-                                          rows="3"
-                                          maxlength="1000"
-                                          placeholder="Describe the issue and how it affects commuters..."
-                                          required></textarea>
+                                    id="incident-description"
+                                    name="description"
+                                    rows="3"
+                                    minlength="20"
+                                    maxlength="1000"
+                                    placeholder="Describe the issue and how it affects commuters..."
+                                    required></textarea>
 
                                 <div class="form-hint">
                                     Include useful details such as the exact situation or possible danger.
                                 </div>
 
+                                <div class="form-hint" id="description-counter" aria-live="polite">
+                                    0 / 1000 characters (minimum 20)
+                                </div>
+
+                                <div class="invalid-feedback">
+                                    Please describe the issue using at least 20 characters.
+                                </div>
                             </div>
 
 
@@ -216,6 +224,7 @@
 
 
                             <!-- TIME OBSERVED -->
+                            <!-- TIME OBSERVED -->
                             <div class="col-md-3">
 
                                 <label class="form-label" for="time-observed">
@@ -223,10 +232,14 @@
                                 </label>
 
                                 <input class="form-control"
-                                       type="time"
-                                       id="time-observed"
-                                       name="time-observed"
-                                       required>
+                                    type="time"
+                                    id="time-observed"
+                                    name="time-observed"
+                                    required>
+
+                                <div class="invalid-feedback">
+                                    Please enter the time the issue occurred.
+                                </div>
 
                             </div>
 
@@ -273,6 +286,10 @@
                                     <span>Minor</span>
                                     <span>Severe</span>
                                 </div>
+                                
+                                <div class="invalid-feedback severity-error">
+                                    Please select a severity level from 1 to 5.
+                                </div>
 
                             </div>
 
@@ -307,11 +324,15 @@
                                 </label>
 
                                 <input class="form-control"
-                                       id="location-text"
-                                       name="location"
-                                       type="text"
-                                       placeholder="Street, barangay, city / municipality"
-                                       required>
+                                    id="location-text"
+                                    name="location"
+                                    type="text"
+                                    placeholder="Street, barangay, city / municipality"
+                                    required>
+
+                                <div class="invalid-feedback">
+                                    Please enter the location where the issue occurred.
+                                </div>
 
                             </div>
 
@@ -366,14 +387,18 @@
                                     Full Name <span>*</span>
                                 </label>
 
-                                <input class="form-control"
-                                       id="reporter-name"
-                                       name="reporter-name"
-                                       type="text"
-                                       placeholder="Your full name"
-                                       required>
+                            <input class="form-control"
+                                id="reporter-name"
+                                name="reporter-name"
+                                type="text"
+                                placeholder="Your full name"
+                                required>
 
+                            <div class="invalid-feedback">
+                                Please enter your full name.
                             </div>
+
+                        </div>
 
 
                             <!-- EMAIL -->
@@ -384,11 +409,15 @@
                                 </label>
 
                                 <input class="form-control"
-                                       id="email-address"
-                                       name="email"
-                                       type="email"
-                                       placeholder="you@example.com"
-                                       required>
+                                    id="email-address"
+                                    name="email"
+                                    type="email"
+                                    placeholder="you@example.com"
+                                    required>
+
+                                <div class="invalid-feedback">
+                                    Please enter a valid email address (e.g., name@example.com).
+                                </div>
 
                             </div>
 
@@ -401,12 +430,18 @@
                                 </label>
 
                                 <input class="form-control"
-                                       id="contact-number"
-                                       name="contact"
-                                       type="tel"
-                                       placeholder="09XX XXX XXXX"
-                                       pattern="^(\+63|0)9\d{9}$"
-                                       required>
+                                    id="contact-number"
+                                    name="contact"
+                                    type="tel"
+                                    inputmode="tel"
+                                    placeholder="09171234567"
+                                    pattern="^(\+63|0)9\d{9}$"
+                                    required>
+
+                                <div class="invalid-feedback">
+                                    Please enter a valid Philippine mobile number
+                                    (e.g., 09171234567 or +639171234567).
+                                </div>
 
                             </div>
 
@@ -492,15 +527,19 @@
                         <div class="form-check">
 
                             <input class="form-check-input"
-                                   type="checkbox"
-                                   id="privacy-consent"
-                                   required>
+                                type="checkbox"
+                                id="privacy-consent"
+                                required>
 
                             <label class="form-check-label" for="privacy-consent">
-
-                                I confirm that the information I provided is accurate to the best of my knowledge.
-
+                                I confirm that the information I provided is accurate
+                                to the best of my knowledge.
                             </label>
+
+                            <div class="invalid-feedback">
+                                Please confirm that your information is accurate
+                                before submitting your report.
+                            </div>
 
                         </div>
 

@@ -9,3 +9,39 @@
   color: var(--ink);
   font-weight: 600;
 }
+
+
+/* CommuteCare Footer Links */
+
+.footer-notice a {
+  color: #152e50;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-notice a:hover {
+  color: #155edf;
+  text-decoration: underline;
+}
+
+.footer-notice a:focus-visible {
+  outline: 2px solid #155edf;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* Mobile Footer */
+
+@media (max-width: 575.98px) {
+  .footer-notice {
+    gap: 0.75rem 1rem !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-notice a {
+    transition: none;
+  }
+}

@@ -574,3 +574,8 @@
         color: #fff;
         box-shadow: 0 0 0 4px rgba(21, 94, 223, 0.15);
     }
+
+/* Show error when no severity level is selected */
+.was-validated .severity-options:has(input:invalid) ~ .severity-error {
+    display: block;
+}

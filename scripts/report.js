@@ -244,3 +244,17 @@ reportForm.addEventListener("change", updateProgress);
 // Initial progress state.
 updateProgress();
 
+// DESCRIPTION CHARACTER COUNTER
+const descriptionInput = document.querySelector("#incident-description");
+const descriptionCounter = document.querySelector("#description-counter");
+
+function updateDescriptionCounter() {
+    const count = descriptionInput.value.length;
+
+    descriptionCounter.textContent =
+        `${count} / 1000 characters (minimum 20)`;
+}
+
+descriptionInput.addEventListener("input", updateDescriptionCounter);
+
+updateDescriptionCounter();
