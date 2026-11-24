@@ -1,0 +1,88 @@
+
+/* CommuteCare About Us Section */
+
+.about-section {
+    background: #f0f6ff;
+    padding: 70px 0;
+}
+
+.about-eyebrow {
+    color: #2563eb;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+}
+
+.about-title {
+    color: #152e50;
+    font-size: clamp(2rem, 4vw, 2.7rem);
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.about-description {
+    color: #52647b;
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 18px;
+}
+
+/* Our Goal Card */
+
+.about-card {
+    background: #ffffff;
+    border: 1px solid #dbe5f1;
+    border-radius: 18px;
+    padding: 32px;
+    height: 100%;
+    box-shadow: 0 8px 24px rgba(21, 46, 80, 0.06);
+}
+
+.about-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    background: #e8f0ff;
+    color: #2563eb;
+    border-radius: 14px;
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+}
+
+.about-card-title {
+    color: #152e50;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.about-card-description {
+    color: #52647b;
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+/* Prototype Disclaimer */
+
+.about-disclaimer {
+    color: #64748b;
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+/* Mobile Responsiveness */
+
+@media (max-width: 767.98px) {
+    .about-section {
+        padding: 50px 0;
+    }
+
+    .about-card {
+        padding: 24px;
+    }
+
+    .about-title {
+        font-size: 2rem;
+    }
+}
