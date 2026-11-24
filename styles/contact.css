@@ -1,0 +1,78 @@
+
+/* CommuteCare Contact Us Section */
+
+.contact-section {
+  background: #f4f8fc;
+  scroll-margin-top: 80px;
+}
+
+.contact-title {
+  color: #152e50;
+  font-family: "DM Sans", sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+}
+
+.contact-description {
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Contact Cards */
+
+.contact-card {
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.contact-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 16px;
+  background: #eaf2ff;
+  color: #155edf;
+  border-radius: 8px;
+  font-size: 1.25rem;
+}
+
+.contact-card h3 {
+  color: #152e50;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.contact-card p {
+  color: #64748b;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.contact-card a {
+  color: #155edf;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.contact-card a:hover {
+  text-decoration: underline;
+}
+
+.contact-disclaimer {
+  color: #64748b;
+  font-size: 0.8rem;
+}
+
+/* Mobile Responsiveness */
+
+@media (max-width: 767.98px) {
+  .contact-card {
+    padding: 20px;
+  }
+}
