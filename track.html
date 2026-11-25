@@ -60,23 +60,29 @@
       </header>
 
     <main>
-      <section class="track-hero d-flex align-items-center" aria-labelledby="track-title">
+      <section class="track-hero" aria-labelledby="track-title">
         <div class="container">
-          <p class="track-eyebrow text-uppercase fw-bold mb-2">Report status</p>
+          <p class="track-eyebrow text-uppercase fw-bold mb-2"><i class="bi bi-search me-1" aria-hidden="true"></i> Report status</p>
           <h1 class="track-hero-title mb-2" id="track-title">Track Your Report</h1>
           <p class="track-hero-copy mb-0">Check the progress of your submitted report.</p>
         </div>
       </section>
 
-      <section class="track-main py-5" aria-label="Report tracking details">
+      <section class="track-main pb-5" aria-label="Report tracking details">
         <div class="container">
           <form class="track-search mb-4" id="track-search-form">
             <label class="form-label" for="track-report-number">Report Reference Number</label>
             <div class="input-group">
               <input class="form-control" id="track-report-number" name="report-number" type="text" placeholder="e.g. CR-2026-0145" required>
-              <button class="btn btn-dark" type="submit">Track Report</button>
+              <button class="btn btn-primary" type="submit">Track Report</button>
             </div>
-            <p class="form-text mb-0">Demo samples: CR-2026-0152 (received), CR-2026-0145 (under review), or CR-2026-0118 (resolved).</p>
+            <div class="track-samples mt-3">
+              <span class="form-text me-1">Try a demo report:</span>
+              <button class="track-sample" type="button">CR-2026-0152</button>
+              <button class="track-sample" type="button">CR-2026-0145</button>
+              <button class="track-sample" type="button">CR-2026-0118</button>
+              <button class="track-sample" type="button">CR-2026-0131</button>
+            </div>
           </form>
 
           <p class="track-notice" id="track-notice" role="status" aria-live="polite" hidden></p>
@@ -133,7 +139,30 @@
             </section>
           </article>
 
-          <p class="track-demo-note small mt-4 mb-0">Demo only: sample reports load from data/reports.json are not real reports. Reports are not sent to any office.</p>
+          <!-- Help for people who do not have their number yet, or are not sure what a status means. -->
+          <div class="row g-4">
+            <div class="col-md-6">
+              <section class="track-help h-100" aria-labelledby="track-help-number">
+                <h2 class="track-help-title" id="track-help-number">Where is my reference number?</h2>
+                <p>You get it right after you submit a report on the <a href="report.html">Report an Issue</a> page. It looks like <strong class="text-nowrap">CC-20261125-AB12C</strong>.</p>
+                <p class="mb-0">Lost it? Reports you sent from this browser are listed in the <a href="dashboard.html">dashboard</a>.</p>
+              </section>
+            </div>
+            <div class="col-md-6">
+              <section class="track-help h-100" aria-labelledby="track-help-status">
+                <h2 class="track-help-title" id="track-help-status">What the statuses mean</h2>
+                <ul class="track-help-list list-unstyled mb-0">
+                  <li><span class="track-status status-pending">Pending</span> saved from this browser, not checked yet.</li>
+                  <li><span class="track-status status-received">Received</span> CommuteCare sent it to the right office.</li>
+                  <li><span class="track-status status-under-review">Under Review</span> the office is checking the location and evidence.</li>
+                  <li><span class="track-status status-resolved">Resolved</span> the office fixed or closed the issue.</li>
+                  <li><span class="track-status status-rejected">Rejected</span> the report was closed. The reason is shown in the update.</li>
+                </ul>
+              </section>
+            </div>
+          </div>
+
+          <p class="track-demo-note small mt-4 mb-0">Demo only: sample reports load from data/reports.json and are not real reports. Reports are not sent to any office. Still stuck? Check the <a href="faq.html">FAQ</a>.</p>
         </div>
       </section>
     </main>

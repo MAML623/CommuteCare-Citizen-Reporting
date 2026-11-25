@@ -1,35 +1,68 @@
-/* Track page header and report summary use the shared Suri colors and type. */
+/* Track page styles. Colors match the other CommuteCare pages (FAQ and Report). */
+:root {
+  --cc-navy: #152e50;
+  --cc-blue: #155edf;
+  --cc-blue-dark: #104abd;
+  --cc-muted: #64748b;
+  --cc-border: #dbe5f1;
+  --cc-bg: #f0f6ff;
+  --cc-panel: #f5f8fd;
+}
+
+/* Keep the footer at the bottom of the screen even when the page is short. */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--cc-bg);
+  color: var(--cc-navy);
+}
+
+main {
+  flex: 1;
+}
+
 .track-hero {
-  min-height: 25svh;
-  padding-block: 2rem;
-  background: #e6f2fb;
+  padding-block: 3rem 2rem;
 }
 
 .track-eyebrow {
-  color: #1a8fc7;
-  font-size: 0.75rem;
+  color: var(--cc-blue);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
 }
 
 .track-hero-title,
 .track-report-number,
 .track-progress-title,
-.track-verdict-title {
-  color: var(--ink);
-  font-family: var(--display-font);
+.track-verdict-title,
+.track-step-title,
+.track-help-title {
+  color: var(--cc-navy);
+  font-family: "DM Sans", sans-serif;
+  font-weight: 700;
 }
 
 .track-hero-title {
-  font-size: clamp(2rem, 4.5vw, 3.5rem);
-  line-height: 1.08;
+  font-size: clamp(2rem, 4.5vw, 2.9rem);
+  line-height: 1.1;
 }
 
 .track-hero-copy,
 .track-demo-note {
-  color: #59635e;
+  color: var(--cc-muted);
 }
 
+/* Search box sits in a white card like the FAQ search. */
 .track-search {
-  max-width: 720px;
+  padding: 1.5rem;
+  border: 1px solid var(--cc-border);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.track-search .form-label {
+  font-weight: 700;
 }
 
 .track-search .form-control,
@@ -37,19 +70,64 @@
   min-height: 48px;
 }
 
+.track-search .form-control {
+  border-color: var(--cc-border);
+  background: #fff;
+}
+
+.track-search .form-control:focus {
+  border-color: var(--cc-blue);
+  box-shadow: 0 0 0 0.2rem rgba(21, 94, 223, 0.15);
+}
+
+.track-search .btn-primary {
+  --bs-btn-bg: var(--cc-blue);
+  --bs-btn-border-color: var(--cc-blue);
+  --bs-btn-hover-bg: var(--cc-blue-dark);
+  --bs-btn-hover-border-color: var(--cc-blue-dark);
+  --bs-btn-active-bg: var(--cc-blue-dark);
+  --bs-btn-active-border-color: var(--cc-blue-dark);
+  padding-inline: 1.25rem;
+  font-weight: 600;
+}
+
+.track-samples {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.track-sample {
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--cc-border);
+  border-radius: 999px;
+  background: var(--cc-panel);
+  color: var(--cc-blue);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.track-sample:hover,
+.track-sample:focus-visible {
+  border-color: var(--cc-blue);
+  background: #fff;
+}
+
 .track-notice {
-  max-width: 900px;
   padding: 1rem 1.25rem;
-  border-left: 4px solid var(--coral);
-  background: #fff2ef;
-  color: var(--ink);
+  border: 1px solid var(--cc-border);
+  border-left: 4px solid var(--cc-blue);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--cc-navy);
 }
 
 .track-report {
-  max-width: 1000px;
+  margin-bottom: 1.5rem;
   padding: clamp(1.25rem, 4vw, 2.5rem);
-  border: 1px solid #e0e5dc;
-  border-radius: 4px;
+  border: 1px solid var(--cc-border);
+  border-radius: 12px;
   background: #fff;
 }
 
@@ -59,12 +137,12 @@
   justify-content: space-between;
   gap: 1rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid #e7eae3;
+  border-bottom: 1px solid var(--cc-border);
 }
 
 .track-category,
 .track-verdict-kicker {
-  color: #1a8fc7;
+  color: var(--cc-blue);
   font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -75,31 +153,52 @@
   font-size: clamp(1.35rem, 3vw, 1.8rem);
 }
 
+/* Status badges: each status has its own color so they are easy to tell apart. */
 .track-status {
+  display: inline-block;
   flex: 0 0 auto;
-  padding: 0.45rem 0.75rem;
-  border-radius: 3px;
-  background: #fff1d6;
-  color: #704c12;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
   font-size: 0.8rem;
   font-weight: 700;
+  white-space: nowrap;
 }
 
-.track-status.is-verdict {
-  background: #e6f2fb;
-  color: #1f2f5c;
+.status-pending {
+  background: #eef1f5;
+  color: #475569;
+}
+
+.status-received {
+  background: #e4eeff;
+  color: #1648b8;
+}
+
+.status-under-review {
+  background: #fff1d6;
+  color: #8a5300;
+}
+
+.status-resolved {
+  background: #dcf5e6;
+  color: #166534;
+}
+
+.status-rejected {
+  background: #fde4e4;
+  color: #b42318;
 }
 
 .track-detail-title {
   margin-bottom: 0.35rem;
-  color: #59635e;
-  font-size: 0.8rem;
+  color: var(--cc-muted);
+  font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
 }
 
 .track-detail-value {
-  color: var(--ink);
+  color: var(--cc-navy);
   line-height: 1.6;
   overflow-wrap: anywhere;
 }
@@ -110,12 +209,12 @@
 
 .track-progress {
   padding-top: 1.5rem;
-  border-top: 1px solid #e7eae3;
+  border-top: 1px solid var(--cc-border);
 }
 
 .track-progress-title {
   margin-bottom: 2rem;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
 }
 
 .track-timeline {
@@ -134,7 +233,7 @@
   right: 12.5%;
   left: 12.5%;
   height: 2px;
-  background: #d6e2ef;
+  background: var(--cc-border);
   content: "";
 }
 
@@ -150,61 +249,130 @@
   height: 40px;
   margin: 0 auto 0.9rem;
   place-items: center;
-  border: 2px solid #d5dbcf;
+  border: 2px solid var(--cc-border);
   border-radius: 50%;
   background: #fff;
-  color: #59635e;
+  color: var(--cc-muted);
   font-size: 0.85rem;
   font-weight: 700;
 }
 
 .track-step.is-complete .track-step-marker {
-  border-color: #1f2f5c;
-  background: var(--green);
-  color: var(--ink);
+  border-color: var(--cc-blue);
+  background: var(--cc-blue);
+  color: #fff;
 }
 
 .track-step.is-current .track-step-marker {
-  border-color: #1f2f5c;
-  background: #1f2f5c;
+  border-color: var(--cc-navy);
+  background: var(--cc-navy);
   color: #fff;
-  box-shadow: 0 0 0 4px #dbeaf7;
+  box-shadow: 0 0 0 4px #dbe8fb;
 }
 
 .track-step-title {
   margin-bottom: 0.4rem;
-  color: var(--ink);
-  font-family: var(--display-font);
   font-size: 1rem;
 }
 
 .track-step-copy {
   margin: 0 auto;
-  color: #59635e;
+  color: var(--cc-muted);
   font-size: 0.85rem;
   line-height: 1.55;
 }
 
+/* A rejected report stops at the current step, shown in red. */
+.track-timeline.is-rejected .track-step.is-current .track-step-marker {
+  border-color: #b42318;
+  background: #b42318;
+  box-shadow: 0 0 0 4px #fde4e4;
+}
+
+.track-step.is-upcoming .track-step-title,
 .track-step.is-upcoming .track-step-copy {
-  color: #737b75;
+  color: #94a3b8;
 }
 
 .track-verdict {
   padding: 1.5rem;
-  border-left: 4px solid #1a8fc7;
-  background: #eef5fb;
+  border-left: 4px solid var(--cc-blue);
+  border-radius: 8px;
+  background: var(--cc-panel);
+}
+
+.track-verdict.is-rejected {
+  border-left-color: #b42318;
+  background: #fff5f5;
+}
+
+.track-verdict.is-rejected .track-verdict-kicker {
+  color: #b42318;
 }
 
 .track-verdict-title {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 
 .track-verdict-copy {
-  color: #59635e;
+  color: var(--cc-muted);
   line-height: 1.65;
 }
 
+/* Help cards under the search: where to find the number and what each status means. */
+.track-help {
+  padding: 1.5rem;
+  border: 1px solid var(--cc-border);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--cc-muted);
+  line-height: 1.6;
+}
+
+.track-help-title {
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.track-help strong {
+  color: var(--cc-navy);
+}
+
+.track-help a,
+.track-demo-note a {
+  color: var(--cc-blue);
+}
+
+.track-help-list {
+  padding-left: 0;
+}
+
+.track-help-list li + li {
+  margin-top: 0.6rem;
+}
+
+.track-help-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.track-help-list .track-status {
+  min-width: 6.4rem;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
 @media (max-width: 767.98px) {
+  .track-hero {
+    padding-block: 2rem 1.5rem;
+  }
+
+  .track-search {
+    padding: 1.25rem;
+  }
+
   .track-report-header {
     flex-direction: column;
   }

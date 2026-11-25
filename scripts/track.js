@@ -51,13 +51,13 @@ const setValue = (selector, value) => {
 
 // Build the progress list by creating HTML elements and adding them to the page.
 const buildTimeline = (report) => {
-  const currentStep = report.status === "resolved"
-    ? 3
-    : report.status === "under-review"
-      ? 2
-      : 1;
+  // Which step is the current one for each status. Resolved (4) means every step is done.
+  // A rejected report stops at Under Review, so that step turns red (see track.css).
+  const stepForStatus = { pending: 0, received: 1, "under-review": 2, rejected: 2, resolved: 4 };
+  const currentStep = stepForStatus[report.status] ?? 1;
 
   trackTimeline.replaceChildren();
+  trackTimeline.classList.toggle("is-rejected", report.status === "rejected");
 
   timelineSteps.forEach((step, index) => {
     const item = document.createElement("li");
@@ -100,15 +100,18 @@ const displayReport = (report, isExample = false) => {
   setValue("#track-location", report.location);
   setValue("#track-submitted", formatDate(report.submittedAt));
 
-  const statusLabel = report.status === "resolved"
-    ? "Resolved"
-    : report.status === "under-review"
-      ? "Under Review"
-      : "Received";
+  // Same status names as the dashboard. Pending = sent from this browser, not checked yet.
+  const statusLabels = {
+    pending: "Pending",
+    received: "Received",
+    "under-review": "Under Review",
+    resolved: "Resolved",
+    rejected: "Rejected"
+  };
 
-  trackStatus.textContent = statusLabel;
-  // `toggle` adds or removes this CSS class depending on whether a verdict is published.
-  trackStatus.classList.toggle("is-verdict", report.status === "resolved");
+  trackStatus.textContent = statusLabels[report.status] || "Received";
+  // Each status gets its own badge color (see track.css).
+  trackStatus.className = `track-status status-${statusLabels[report.status] ? report.status : "received"}`;
 
   const messageRow = document.querySelector("#track-message-row");
   messageRow.hidden = !report.landmark;
@@ -124,6 +127,7 @@ const displayReport = (report, isExample = false) => {
 
   buildTimeline(report);
     trackVerdict.hidden = !report.update;
+    trackVerdict.classList.toggle("is-rejected", report.status === "rejected");
 
     if (report.update) {
         setValue("#track-verdict-title", report.office);
@@ -161,6 +165,14 @@ const loadReport = async (reportNumber) => {
     trackNotice.hidden = false;
   }
 };
+
+// The demo report buttons fill in the search box and run the search.
+document.querySelectorAll(".track-sample").forEach((button) => {
+  button.addEventListener("click", () => {
+    trackNumberInput.value = button.textContent;
+    trackSearchForm.requestSubmit();
+  });
+});
 
 trackSearchForm.addEventListener("submit", (event) => {
   // Handle the search ourselves instead of letting the browser reload the page.

@@ -40,5 +40,19 @@
     "office": "Pasay City LGU - Engineering Office",
     "screenshotName": "underpass-flood.jpg",
     "update": "The clogged drainage was cleared and the area was checked after the next rain. This report is now closed."
+  },
+  "CR-2026-0131": {
+    "reportNumber": "CR-2026-0131",
+    "isDemo": true,
+    "status": "rejected",
+    "category": "Garbage Accumulation",
+    "description": "Garbage bags are piled up beside the bus stop and block part of the waiting area.",
+    "location": "EDSA Taft bus stop, Pasay City",
+    "landmark": "Across the mall entrance",
+    "dateObserved": "2026-10-10",
+    "submittedAt": "2026-10-10T07:50:00+08:00",
+    "office": "Pasay City LGU - Environment Office",
+    "screenshotName": "bus-stop-garbage.jpg",
+    "update": "Rejected: this is the same issue as report CR-2026-0128, which is already being handled. Please follow that report for updates."
   }
 }
