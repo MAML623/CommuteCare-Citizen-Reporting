@@ -1,79 +1,52 @@
-# Suri – Citizen Reporting Website
+# CommuteCare – Citizen Reporting System
 
-## About the Project
+## Project Overview
 
-**Suri** is a web-based citizen reporting platform designed to help people report problems in public spaces, particularly around transportation areas, stations, terminals, and nearby streets.
+CommuteCare is a web-based citizen reporting platform designed to help commuters report problems and safety concerns around public transportation areas, terminals, stations, sidewalks, and nearby roads.
 
-The project focuses on making it easier for citizens to report issues that may affect public safety, accessibility, and the cleanliness of their surroundings. Users can submit reports with descriptions, location details, and supporting photo evidence. They can also track the status of their submitted reports using a unique tracking number.
+The platform allows users to submit reports about issues such as flooding, garbage accumulation, damaged sidewalks, broken streetlights, and electrical hazards. It aims to improve public awareness and make it easier for commuters to communicate problems that may affect their daily travel.
 
-The initial focus of the project is on selected areas in **Pasay and Manila**, covering public-space concerns that commuters, students, employees, and other pedestrians may encounter.
+The project initially focuses on selected areas in Pasay and Manila, Philippines.
+
+## Objectives
+
+- Provide commuters with an accessible platform for reporting public infrastructure and environmental concerns.
+- Encourage community participation in identifying problems around transportation areas.
+- Allow users to submit reports with descriptions and supporting images.
+- Help users monitor the status of their submitted reports.
+- Provide information and guidelines to promote responsible reporting.
 
 ## Key Features
 
-- **Submit a Report** – Allows users to report problems in public spaces by providing the incident category, description, severity, date, and time.
-- **Location Details** – Allows users to specify where the reported issue occurred and provide nearby landmarks.
-- **Photo Evidence** – Supports optional image uploads to provide additional information about the reported issue.
-- **Report Tracking** – Provides a tracking page where users can check the status of their submitted reports using their report number.
-- **Report Information** – Displays report details, including the submitted concern, location, and current status.
-- **Sample Reports** – Includes sample report data for demonstration and testing purposes.
+### 1. Homepage
+- Introduces the CommuteCare platform.
+- Provides access to the main website sections.
+- Highlights the purpose of citizen reporting.
 
-## Types of Issues Covered
+### 2. Citizen Reporting
+- Allows users to submit reports about public-area concerns.
+- Supports different categories of reported issues.
+- Allows users to provide descriptions and upload supporting evidence.
+- Provides a structured reporting process.
 
-Suri focuses on common public-space concerns, including:
+### 3. Report Tracking
+- Allows users to check the status of submitted reports.
+- Provides access to report information and details.
 
-- Garbage and improper waste disposal
-- Flooding and water accumulation
-- Damaged sidewalks and walkways
-- Broken streetlights
-- Electrical hazards
-- Other problems affecting public spaces and pedestrian safety
+### 4. Dashboard
+- Displays reporting information and statistics.
+- Provides an overview of submitted reports.
 
-## Technologies Used
+### 5. Frequently Asked Questions (FAQ)
+- Provides answers to common questions about the platform.
+- Helps users understand how CommuteCare works.
 
-- **HTML5** – Structures the website's pages and content.
-- **CSS3** – Handles the website's styling and responsive layouts.
-- **JavaScript** – Manages form validation, report submission, and interactive features.
-- **Bootstrap** – Provides responsive layout components and styling utilities.
-- **JSON** – Stores sample report data used for the demonstration.
-- **Local Storage** – Temporarily stores reports submitted through the demo in the user's browser.
+### 6. Reporting Guidelines
+- Explains how to submit clear and useful reports.
+- Encourages users to provide accurate information and supporting evidence.
 
-## Running the Project Locally
+### 7. Privacy Policy
+- Provides information about the handling of user information.
+- Explains the platform's privacy practices.
 
-The project should be opened through a local web server instead of directly opening the HTML files. This allows the browser to properly load the JSON sample data.
-
-### Option 1: Python Built-in Server
-
-1. Install Python from [python.org](https://www.python.org/downloads/) if it is not already installed.
-2. Open a terminal in the project folder.
-3. Run the following command:
-
-   ```powershell
-   py -m http.server 8000
-   ```
-
-4. Open your browser and visit:
-
-   `http://localhost:8000/`
-
-5. To access the report tracker, visit:
-
-   `http://localhost:8000/track.html`
-
-6. To stop the server, return to the terminal and press `Ctrl + C`.
-
-If `py` is not recognized, try `python -m http.server 8000`. On macOS or Linux, use `python3 -m http.server 8000`.
-
-### Option 2: VS Code Live Server
-
-1. Install the **Live Server** extension in Visual Studio Code.
-2. Open the project folder in VS Code.
-3. Open `index.html`.
-4. Click **Go Live** in the status bar.
-5. Use the local address provided by Live Server to access the website.
-
-## Important Notes
-
-- An internet connection is required to load CDN-hosted Bootstrap, icons, and fonts.
-- Sample reports are loaded from `data/reports.json`.
-- Reports submitted through the demonstration are stored in the browser's local storage.
-- This project is a web development demonstration. Submitted reports are not transmitted to government agencies or other official organizations.
+##
