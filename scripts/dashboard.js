@@ -1,15 +1,35 @@
+
+import { auth, db } from "./firebase-config.js";
+
+import {
+    signInAnonymously
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
+
+import {
+    collection,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
+
+
+// ==========================================
+// DASHBOARD ELEMENTS
+// ==========================================
+
 const dashboardTable = document.querySelector("#reports-table-body");
 const dashboardMessage = document.querySelector("#dashboard-message");
-
 const searchInput = document.querySelector("#dashboard-search");
 const statusFilter = document.querySelector("#status-filter");
 
 const dashboardStorageKey = "suriReports";
 
-// Convert internal statuses into readable labels.
+
+// ==========================================
+// REPORT STATUS LABELS
+// ==========================================
+
 function getStatusLabel(status) {
     const labels = {
-        pending: "Pending (Local)",
+        pending: "Pending",
         received: "Received",
         "under-review": "Under Review",
         resolved: "Resolved",
@@ -19,60 +39,201 @@ function getStatusLabel(status) {
     return labels[status] || "Unknown";
 }
 
-// Create table cells safely.
+
+// ==========================================
+// CREATE TABLE CELLS SAFELY
+// ==========================================
+
 function addCell(row, text) {
     const cell = document.createElement("td");
+
     cell.textContent = text ?? "";
+
     row.appendChild(cell);
+
     return cell;
 }
 
-// Load reports from browser storage and demo JSON.
-async function loadDashboard() {
-    let savedReports = {};
-    let demoReports = {};
-    const loadingErrors = [];
 
-    // Load reports submitted in this browser.
+// ==========================================
+// LOAD LOCAL REPORTS
+// ==========================================
+
+function getLocalReports() {
     try {
-        savedReports = JSON.parse(
+        const savedReports = JSON.parse(
             localStorage.getItem(dashboardStorageKey) || "{}"
         );
-    } catch (error) {
-        loadingErrors.push("Could not read locally saved reports.");
-    }
 
-    // Load sample reports.
+        return Object.values(savedReports).map(report => ({
+            ...report,
+            source: "This Browser"
+        }));
+
+    } catch (error) {
+        console.error("Local reports unavailable:", error);
+        return [];
+    }
+}
+
+
+// ==========================================
+// LOAD DEMONSTRATION REPORTS
+// ==========================================
+
+async function getDemoReports() {
     try {
         const response = await fetch("data/reports.json");
 
         if (!response.ok) {
-            throw new Error("Failed to load demonstration reports.");
+            throw new Error("Could not load demo reports.");
         }
 
-        demoReports = await response.json();
+        const demoReports = await response.json();
+
+        return Object.values(demoReports).map(report => ({
+            ...report,
+            source: "Demo Sample"
+        }));
+
     } catch (error) {
+        console.error("Demo reports unavailable:", error);
+        return [];
+    }
+}
+
+
+// ==========================================
+// FIREBASE AUTHENTICATION
+// ==========================================
+
+async function getFirebaseUser() {
+
+    // Restore the existing anonymous Firebase user.
+    await auth.authStateReady();
+
+    if (auth.currentUser) {
+        return auth.currentUser;
+    }
+
+    // Sign in anonymously if necessary.
+    const credential = await signInAnonymously(auth);
+
+    return credential.user;
+}
+
+
+// ==========================================
+// LOAD FIREBASE REPORTS
+// ==========================================
+
+async function getFirebaseReports() {
+
+    const user = await getFirebaseUser();
+
+    // Only retrieve reports belonging
+    // to the current anonymous Firebase user.
+    const reportsRef = collection(
+        db,
+        "users",
+        user.uid,
+        "reports"
+    );
+
+    const snapshot = await getDocs(reportsRef);
+
+    return snapshot.docs.map(documentSnapshot => ({
+        ...documentSnapshot.data(),
+        reportNumber: documentSnapshot.id,
+        source: "Firebase Cloud"
+    }));
+}
+
+
+// ==========================================
+// LOAD DASHBOARD
+// ==========================================
+
+async function loadDashboard() {
+
+    dashboardMessage.textContent = "Loading reports...";
+
+    const loadingErrors = [];
+
+    // --------------------------------------
+    // STEP 1: LOCAL REPORTS
+    // --------------------------------------
+
+    const localReports = getLocalReports();
+
+    // --------------------------------------
+    // STEP 2: SAMPLE REPORTS
+    // --------------------------------------
+
+    const demoReports = await getDemoReports();
+
+    // --------------------------------------
+    // STEP 3: FIREBASE REPORTS
+    // --------------------------------------
+
+    let firebaseReports = [];
+
+    try {
+        firebaseReports = await getFirebaseReports();
+
+        console.log(
+            "Reports loaded from Firestore:",
+            firebaseReports.length
+        );
+
+    } catch (error) {
+        console.error(
+            "Could not load Firebase reports:",
+            error
+        );
+
         loadingErrors.push(
-            "Some demonstration reports could not be loaded."
+            "Firebase reports could not be loaded. " +
+            "Showing available browser and sample reports."
         );
     }
 
-    // Combine saved reports and sample reports.
-    const reports = [
-        ...Object.values(savedReports).map(report => ({
-            ...report,
-            source: "This Browser"
-        })),
+    // --------------------------------------
+    // STEP 4: COMBINE REPORTS
+    // --------------------------------------
 
-        ...Object.values(demoReports).map(report => ({
-            ...report,
-            source: "Demo Sample"
-        }))
-    ];
+    // A Map prevents duplicate report numbers.
+    const reportsMap = new Map();
 
-    // ==========================================
-    // DASHBOARD SUMMARY COUNTERS
-    // ==========================================
+    // Add demonstration reports first.
+    demoReports.forEach(report => {
+        reportsMap.set(report.reportNumber, report);
+    });
+
+    // Add local reports next.
+    localReports.forEach(report => {
+        reportsMap.set(report.reportNumber, report);
+    });
+
+    // Firebase reports take priority when
+    // the same report exists in multiple sources.
+    firebaseReports.forEach(report => {
+        reportsMap.set(report.reportNumber, report);
+    });
+
+    const reports = Array.from(reportsMap.values());
+
+    // Put the newest reports first.
+    reports.sort((a, b) => {
+        const dateA = Date.parse(a.submittedAt || "") || 0;
+        const dateB = Date.parse(b.submittedAt || "") || 0;
+
+        return dateB - dateA;
+    });
+
+    // --------------------------------------
+    // STEP 5: UPDATE SUMMARY COUNTERS
+    // --------------------------------------
 
     document.querySelector("#total-reports").textContent =
         reports.length;
@@ -94,16 +255,21 @@ async function loadDashboard() {
         ).length;
 
 
-    // ==========================================
-    // DASHBOARD SEARCH AND FILTER
-    // ==========================================
+    // ======================================
+    // RENDER DASHBOARD REPORTS
+    // ======================================
 
     function renderReports() {
 
-        const searchText = searchInput.value.trim().toLowerCase();
+        const searchText =
+            searchInput.value.trim().toLowerCase();
+
         const selectedStatus = statusFilter.value;
 
-        // Filter reports by search text and status.
+        // ----------------------------------
+        // SEARCH AND FILTER
+        // ----------------------------------
+
         const filteredReports = reports.filter(report => {
 
             const matchesSearch =
@@ -125,7 +291,10 @@ async function loadDashboard() {
         // Clear previous table rows.
         dashboardTable.replaceChildren();
 
-        // Display a message if no reports match.
+        // ----------------------------------
+        // EMPTY RESULTS
+        // ----------------------------------
+
         if (filteredReports.length === 0) {
 
             const row = document.createElement("tr");
@@ -143,32 +312,32 @@ async function loadDashboard() {
             dashboardTable.appendChild(row);
         }
 
-        // ==========================================
-        // DISPLAY FILTERED REPORTS
-        // ==========================================
+        // ----------------------------------
+        // DISPLAY REPORTS
+        // ----------------------------------
 
         filteredReports.forEach(report => {
 
             const row = document.createElement("tr");
 
-            // Reference number
             addCell(row, report.reportNumber);
 
-            // Issue category
             addCell(row, report.category);
 
-            // Report status
-            addCell(row, getStatusLabel(report.status));
+            addCell(
+                row,
+                getStatusLabel(report.status)
+            );
 
-            // Report source
             addCell(row, report.source);
 
-            // View Report button
+            // View Report button.
             const actionCell = document.createElement("td");
 
             const link = document.createElement("a");
 
-            link.href = "track.html?report=" +
+            link.href =
+                "track.html?report=" +
                 encodeURIComponent(report.reportNumber);
 
             link.textContent = "View Report";
@@ -182,30 +351,38 @@ async function loadDashboard() {
             dashboardTable.appendChild(row);
         });
 
-        // Show how many reports match.
-        const resultsMessage =
-            `${filteredReports.length} of ${reports.length} reports shown.`;
+        // ----------------------------------
+        // DISPLAY RESULT COUNT
+        // ----------------------------------
 
         dashboardMessage.textContent = [
             ...loadingErrors,
-            resultsMessage
+            `${filteredReports.length} of ${reports.length} reports shown.`
         ].join(" ");
     }
 
 
-    // ==========================================
-    // SEARCH AND FILTER EVENT LISTENERS
-    // ==========================================
+    // ======================================
+    // SEARCH AND FILTER EVENTS
+    // ======================================
 
-    // Update results while typing.
-    searchInput.addEventListener("input", renderReports);
+    searchInput.addEventListener(
+        "input",
+        renderReports
+    );
 
-    // Update results when status changes.
-    statusFilter.addEventListener("change", renderReports);
+    statusFilter.addEventListener(
+        "change",
+        renderReports
+    );
 
-    // Display all reports when the dashboard loads.
+    // Display reports immediately after loading.
     renderReports();
 }
 
-// Load dashboard data.
+
+// ==========================================
+// INITIALIZE DASHBOARD
+// ==========================================
+
 loadDashboard();

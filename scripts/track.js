@@ -1,4 +1,22 @@
+
+import { auth, db } from "./firebase-config.js";
+
+import {
+    signInAnonymously
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
+
+import {
+    doc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
+
+
+// ==========================================
+// TRACKING PAGE ELEMENTS
+// ==========================================
+
 const reportsStorageKey = "suriReports";
+
 const trackSearchForm = document.querySelector("#track-search-form");
 const trackNumberInput = document.querySelector("#track-report-number");
 const trackNotice = document.querySelector("#track-notice");
@@ -6,191 +24,578 @@ const trackReport = document.querySelector("#track-report");
 const trackStatus = document.querySelector("#track-status");
 const trackTimeline = document.querySelector("#track-timeline");
 const trackVerdict = document.querySelector("#track-verdict");
-// `fetch` requests the sample data file. Promises let the page continue while it loads.
-const demoReportsRequest = fetch("data/reports.json")
-  .then((response) => {
-    if (!response.ok) {
-      // `throw` creates an error that can be handled by the `catch` below.
-      throw new Error("Could not load sample reports.");
-    }
 
-    return response.json();
-  })
-  .catch(() => ({}));
+let latestLookupId = 0;
+
+
+// ==========================================
+// SAMPLE REPORTS
+// ==========================================
+
+// Keep the existing demonstration reports.
+const demoReportsRequest = fetch("data/reports.json")
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error("Could not load sample reports.");
+        }
+
+        return response.json();
+    })
+    .catch((error) => {
+        console.warn("Demo reports unavailable:", error);
+        return {};
+    });
+
+
+// ==========================================
+// TRACKING TIMELINE
+// ==========================================
 
 const timelineSteps = [
-    { title: "Submitted", copy: "Your report was saved and given a reference number." },
-    { title: "Received", copy: "CommuteCare checked your report and sent it to the right office." },
-    { title: "Under Review", copy: "The office is checking the location and evidence." },
-    { title: "Resolved", copy: "The office has fixed or closed the issue." }
+    {
+        title: "Submitted",
+        copy: "Your report was saved and given a reference number."
+    },
+    {
+        title: "Received",
+        copy: "CommuteCare checked your report and sent it to the right office."
+    },
+    {
+        title: "Under Review",
+        copy: "The office is checking the location and evidence."
+    },
+    {
+        title: "Resolved",
+        copy: "The office has fixed or closed the issue."
+    }
 ];
 
-// Read saved report data from this browser and parse its JSON text into an object.
-const readReports = () => JSON.parse(localStorage.getItem(reportsStorageKey) || "{}");
 
-// Turn a date value into a readable date, while handling missing or invalid values.
-const formatDate = (value) => {
-  if (!value) {
-    return "Not provided";
-  }
+// ==========================================
+// LOCAL STORAGE FALLBACK
+// ==========================================
 
-  const localDateMatch = value.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  const date = localDateMatch
-    ? new Date(Number(localDateMatch[1]), Number(localDateMatch[2]) - 1, Number(localDateMatch[3]))
-    : new Date(value);
-
-  return Number.isNaN(date.getTime())
-    ? value
-    : new Intl.DateTimeFormat(undefined, { dateStyle: "medium" }).format(date);
+const readReports = () => {
+    try {
+        return JSON.parse(
+            localStorage.getItem(reportsStorageKey) || "{}"
+        );
+    } catch (error) {
+        console.warn("Could not read local reports:", error);
+        return {};
+    }
 };
 
-const setValue = (selector, value) => {
-  // `textContent` displays text without treating it as HTML markup.
-  document.querySelector(selector).textContent = value || "Not provided";
-};
 
-// Build the progress list by creating HTML elements and adding them to the page.
-const buildTimeline = (report) => {
-  // Which step is the current one for each status. Resolved (4) means every step is done.
-  // A rejected report stops at Under Review, so that step turns red (see track.css).
-  const stepForStatus = { pending: 0, received: 1, "under-review": 2, rejected: 2, resolved: 4 };
-  const currentStep = stepForStatus[report.status] ?? 1;
+// ==========================================
+// FIREBASE AUTHENTICATION
+// ==========================================
 
-  trackTimeline.replaceChildren();
-  trackTimeline.classList.toggle("is-rejected", report.status === "rejected");
+async function getFirebaseUser() {
 
-  timelineSteps.forEach((step, index) => {
-    const item = document.createElement("li");
-    const marker = document.createElement("span");
-    const content = document.createElement("div");
-    const title = document.createElement("h4");
-    const description = document.createElement("p");
-    const state = index < currentStep ? "complete" : index === currentStep ? "current" : "upcoming";
+    // Wait for Firebase to restore any existing
+    // anonymous login from this browser.
+    await auth.authStateReady();
 
-    item.className = `track-step is-${state}`;
-    marker.className = "track-step-marker";
-    marker.setAttribute("aria-hidden", "true");
-    marker.textContent = state === "complete" ? "✓" : String(index + 1).padStart(2, "0");
-    content.className = "track-step-content";
-    title.className = "track-step-title";
-    title.textContent = step.title;
-    description.className = "track-step-copy";
-    description.textContent = step.copy;
-
-    if (state === "current") {
-      item.setAttribute("aria-current", "step");
+    // Reuse the existing identity when possible.
+    if (auth.currentUser) {
+        return auth.currentUser;
     }
 
-    content.append(title, description);
-    item.append(marker, content);
-    trackTimeline.append(item);
-  });
+    // Otherwise, sign in anonymously.
+    const credential = await signInAnonymously(auth);
+
+    return credential.user;
+}
+
+
+// ==========================================
+// FETCH REPORT FROM FIRESTORE
+// ==========================================
+
+async function getFirebaseReport(reportNumber) {
+
+    const user = await getFirebaseUser();
+
+    // Firestore path:
+    // users / userId / reports / reportNumber
+    const reportRef = doc(
+        db,
+        "users",
+        user.uid,
+        "reports",
+        reportNumber
+    );
+
+    const reportSnapshot = await getDoc(reportRef);
+
+    if (!reportSnapshot.exists()) {
+        return null;
+    }
+
+    return {
+        ...reportSnapshot.data(),
+        reportNumber
+    };
+}
+
+
+// ==========================================
+// DATE FORMATTING
+// ==========================================
+
+const formatDate = (value) => {
+
+    if (!value) {
+        return "Not provided";
+    }
+
+    const dateText = String(value);
+
+    const localDateMatch = dateText.match(
+        /^(\d{4})-(\d{2})-(\d{2})$/
+    );
+
+    const date = localDateMatch
+        ? new Date(
+            Number(localDateMatch[1]),
+            Number(localDateMatch[2]) - 1,
+            Number(localDateMatch[3])
+        )
+        : new Date(dateText);
+
+    return Number.isNaN(date.getTime())
+        ? dateText
+        : new Intl.DateTimeFormat(
+            undefined,
+            { dateStyle: "medium" }
+        ).format(date);
 };
 
-const displayReport = (report, isExample = false) => {
-  trackNotice.hidden = true;
-  trackReport.hidden = false;
-  trackNumberInput.value = report.reportNumber;
 
-  setValue("#track-category", report.category);
-  setValue("#track-report-heading", report.reportNumber);
-  setValue("#track-description", report.description);
-  setValue("#track-sender", report.office);
-  setValue("#track-date-received", formatDate(report.dateObserved));
-  setValue("#track-location", report.location);
-  setValue("#track-submitted", formatDate(report.submittedAt));
+// ==========================================
+// DISPLAY TEXT SAFELY
+// ==========================================
 
-  // Same status names as the dashboard. Pending = sent from this browser, not checked yet.
-  const statusLabels = {
-    pending: "Pending",
-    received: "Received",
-    "under-review": "Under Review",
-    resolved: "Resolved",
-    rejected: "Rejected"
-  };
+const setValue = (selector, value) => {
+    const element = document.querySelector(selector);
 
-  trackStatus.textContent = statusLabels[report.status] || "Received";
-  // Each status gets its own badge color (see track.css).
-  trackStatus.className = `track-status status-${statusLabels[report.status] ? report.status : "received"}`;
+    if (element) {
+        element.textContent = value || "Not provided";
+    }
+};
 
-  const messageRow = document.querySelector("#track-message-row");
-  messageRow.hidden = !report.landmark;
-  if (report.landmark) {
-    setValue("#track-message", report.landmark);
-  }
 
-  const screenshotRow = document.querySelector("#track-screenshot-row");
-  screenshotRow.hidden = !report.screenshotName;
-  if (report.screenshotName) {
-    setValue("#track-screenshot", `${report.screenshotName} (image file is not retained in this demo)`);
-  }
+// ==========================================
+// BUILD TRACKING TIMELINE
+// ==========================================
 
-  buildTimeline(report);
+const buildTimeline = (report) => {
+
+    const stepForStatus = {
+        pending: 0,
+        received: 1,
+        "under-review": 2,
+        rejected: 2,
+        resolved: 4
+    };
+
+    const currentStep =
+        stepForStatus[report.status] ?? 0;
+
+    trackTimeline.replaceChildren();
+
+    trackTimeline.classList.toggle(
+        "is-rejected",
+        report.status === "rejected"
+    );
+
+    timelineSteps.forEach((step, index) => {
+
+        const item = document.createElement("li");
+        const marker = document.createElement("span");
+        const content = document.createElement("div");
+        const title = document.createElement("h4");
+        const description = document.createElement("p");
+
+        const state =
+            index < currentStep
+                ? "complete"
+                : index === currentStep
+                    ? "current"
+                    : "upcoming";
+
+        item.className = `track-step is-${state}`;
+
+        marker.className = "track-step-marker";
+
+        marker.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        marker.textContent =
+            state === "complete"
+                ? "✓"
+                : String(index + 1).padStart(2, "0");
+
+        content.className = "track-step-content";
+
+        title.className = "track-step-title";
+        title.textContent = step.title;
+
+        description.className = "track-step-copy";
+        description.textContent = step.copy;
+
+        if (state === "current") {
+            item.setAttribute(
+                "aria-current",
+                "step"
+            );
+        }
+
+        content.append(title, description);
+        item.append(marker, content);
+
+        trackTimeline.append(item);
+    });
+};
+
+
+// ==========================================
+// DISPLAY REPORT INFORMATION
+// ==========================================
+
+const displayReport = (
+    report,
+    isExample = false,
+    additionalNotice = ""
+) => {
+
+    trackNotice.hidden = true;
+    trackReport.hidden = false;
+
+    trackNumberInput.value = report.reportNumber;
+
+    setValue("#track-category", report.category);
+    setValue("#track-report-heading", report.reportNumber);
+    setValue("#track-description", report.description);
+    setValue("#track-sender", report.office);
+    setValue("#track-date-received", formatDate(report.dateObserved));
+    setValue("#track-location", report.location);
+    setValue("#track-submitted", formatDate(report.submittedAt));
+
+    // --------------------------------------
+    // REPORT STATUS
+    // --------------------------------------
+
+    const statusLabels = {
+        pending: "Pending",
+        received: "Received",
+        "under-review": "Under Review",
+        resolved: "Resolved",
+        rejected: "Rejected"
+    };
+
+    const statusName = statusLabels[report.status]
+        ? report.status
+        : "pending";
+
+    trackStatus.textContent =
+        statusLabels[statusName];
+
+    trackStatus.className =
+        `track-status status-${statusName}`;
+
+    // --------------------------------------
+    // LOCATION / LANDMARK
+    // --------------------------------------
+
+    const messageRow = document.querySelector(
+        "#track-message-row"
+    );
+
+    messageRow.hidden = !report.landmark;
+
+    if (report.landmark) {
+        setValue("#track-message", report.landmark);
+    }
+
+    // --------------------------------------
+    // PHOTO FILENAME
+    // --------------------------------------
+
+    const screenshotRow = document.querySelector(
+        "#track-screenshot-row"
+    );
+
+    screenshotRow.hidden = !report.screenshotName;
+
+    if (report.screenshotName) {
+        setValue(
+            "#track-screenshot",
+            `${report.screenshotName} (image file is not retained in this demo)`
+        );
+    }
+
+    // --------------------------------------
+    // TIMELINE
+    // --------------------------------------
+
+    buildTimeline(report);
+
+    // --------------------------------------
+    // REPORT UPDATES
+    // --------------------------------------
+
     trackVerdict.hidden = !report.update;
-    trackVerdict.classList.toggle("is-rejected", report.status === "rejected");
+
+    trackVerdict.classList.toggle(
+        "is-rejected",
+        report.status === "rejected"
+    );
 
     if (report.update) {
         setValue("#track-verdict-title", report.office);
         setValue("#track-verdict-copy", report.update);
     }
 
-  if (isExample) {
-    trackNotice.textContent = "Sample report shown for demonstration. This is not a real report or assessment.";
-    trackNotice.hidden = false;
-  }
-};
+    // --------------------------------------
+    // NOTICES
+    // --------------------------------------
 
-// `async` allows this function to wait for data with `await` without blocking the page.
-const loadReport = async (reportNumber) => {
-  trackReport.hidden = true;
+    const messages = [];
 
-  try {
-    const normalizedNumber = reportNumber.trim().toUpperCase();
-    // Load both data sources together, then use whichever contains this report number.
-    const [demoReports, savedReports] = await Promise.all([
-      demoReportsRequest,
-      Promise.resolve(readReports())
-    ]);
-    const report = savedReports[normalizedNumber] || demoReports[normalizedNumber];
-
-    if (!report) {
-      trackNotice.textContent = "No report with that number was found. Check the number and try again.";
-      trackNotice.hidden = false;
-      return;
+    if (isExample) {
+        messages.push(
+            "Sample report shown for demonstration. " +
+            "This is not a real report or assessment."
+        );
     }
 
-    displayReport(report, Boolean(report.isDemo));
-  } catch {
-    trackNotice.textContent = "Reports could not be loaded. Check this browser's local storage and try again.";
-    trackNotice.hidden = false;
-  }
+    if (additionalNotice) {
+        messages.push(additionalNotice);
+    }
+
+    trackNotice.textContent = messages.join(" ");
+
+    trackNotice.hidden = messages.length === 0;
 };
 
-// The demo report buttons fill in the search box and run the search.
-document.querySelectorAll(".track-sample").forEach((button) => {
-  button.addEventListener("click", () => {
-    trackNumberInput.value = button.textContent;
-    trackSearchForm.requestSubmit();
-  });
-});
 
-trackSearchForm.addEventListener("submit", (event) => {
-  // Handle the search ourselves instead of letting the browser reload the page.
-  event.preventDefault();
-  const reportNumber = trackNumberInput.value.trim().toUpperCase();
-  const nextUrl = new URL(window.location.href);
-  // Update the address bar's report parameter so this report can be linked or refreshed.
-  nextUrl.searchParams.set("report", reportNumber);
-  window.history.replaceState(null, "", nextUrl);
-  loadReport(reportNumber);
-});
+// ==========================================
+// LOAD REPORT
+// ==========================================
 
-// Read query parameters from the page URL, such as ?report=SR-... or ?demo=verdict.
-const parameters = new URLSearchParams(window.location.search);
-const requestedReport = parameters.get("report") || (
-  parameters.get("demo") === "verdict" ? "SR-20261025-1003" : ""
+const loadReport = async (reportNumber) => {
+
+    // Prevent an older lookup from replacing
+    // the result of a newer search.
+    const lookupId = ++latestLookupId;
+
+    trackReport.hidden = true;
+
+    const normalizedNumber =
+        reportNumber.trim().toUpperCase();
+
+    if (!normalizedNumber) {
+        trackNotice.textContent =
+            "Please enter a report reference number.";
+
+        trackNotice.hidden = false;
+        return;
+    }
+
+    trackNotice.textContent =
+        "Searching for your report...";
+
+    trackNotice.hidden = false;
+
+    // --------------------------------------
+    // DEMONSTRATION REPORTS
+    // --------------------------------------
+
+    const demoReports = await demoReportsRequest;
+
+    if (lookupId !== latestLookupId) {
+        return;
+    }
+
+    // Sample reports should remain available,
+    // even when Firebase is offline.
+    if (demoReports[normalizedNumber]) {
+
+        displayReport(
+            demoReports[normalizedNumber],
+            true
+        );
+
+        return;
+    }
+
+    // --------------------------------------
+    // STEP 1: CHECK FIREBASE FIRST
+    // --------------------------------------
+
+    let firebaseError = null;
+
+    try {
+
+        const firebaseReport =
+            await getFirebaseReport(normalizedNumber);
+
+        if (lookupId !== latestLookupId) {
+            return;
+        }
+
+        if (firebaseReport) {
+
+            console.log(
+                "Report loaded from Firestore:",
+                normalizedNumber
+            );
+
+            displayReport(firebaseReport);
+
+            return;
+        }
+
+    } catch (error) {
+
+        firebaseError = error;
+
+        console.error(
+            "Firebase report lookup failed:",
+            error
+        );
+    }
+
+    if (lookupId !== latestLookupId) {
+        return;
+    }
+
+    // --------------------------------------
+    // STEP 2: CHECK LOCAL STORAGE
+    // --------------------------------------
+
+    const savedReports = readReports();
+
+    const localReport =
+        savedReports[normalizedNumber];
+
+    if (localReport) {
+
+        console.log(
+            "Report loaded from localStorage:",
+            normalizedNumber
+        );
+
+        const notice = firebaseError
+            ? "The cloud report could not be checked. " +
+              "Showing the copy saved in this browser."
+            : "Showing the report saved in this browser.";
+
+        displayReport(
+            localReport,
+            false,
+            notice
+        );
+
+        return;
+    }
+
+    // --------------------------------------
+    // STEP 3: REPORT NOT FOUND
+    // --------------------------------------
+
+    trackReport.hidden = true;
+    trackNotice.hidden = false;
+
+    if (firebaseError) {
+
+        trackNotice.textContent =
+            "Could not connect to Firebase to check this report. " +
+            "Check your internet connection and try again.";
+
+    } else {
+
+        trackNotice.textContent =
+            "No report with that number was found for this browser's " +
+            "Firebase account. Check the reference number and try again.";
+
+    }
+};
+
+
+// ==========================================
+// DEMO REPORT BUTTONS
+// ==========================================
+
+document.querySelectorAll(".track-sample").forEach(
+    (button) => {
+
+        button.addEventListener("click", () => {
+
+            trackNumberInput.value =
+                button.textContent.trim();
+
+            trackSearchForm.requestSubmit();
+        });
+    }
 );
 
+
+// ==========================================
+// SEARCH FORM
+// ==========================================
+
+trackSearchForm.addEventListener(
+    "submit",
+    (event) => {
+
+        event.preventDefault();
+
+        const reportNumber =
+            trackNumberInput.value
+                .trim()
+                .toUpperCase();
+
+        const nextUrl = new URL(
+            window.location.href
+        );
+
+        nextUrl.searchParams.set(
+            "report",
+            reportNumber
+        );
+
+        window.history.replaceState(
+            null,
+            "",
+            nextUrl
+        );
+
+        loadReport(reportNumber);
+    }
+);
+
+
+// ==========================================
+// LOAD REPORT FROM URL
+// ==========================================
+
+const parameters = new URLSearchParams(
+    window.location.search
+);
+
+const requestedReport =
+    parameters.get("report") ||
+    (
+        parameters.get("demo") === "verdict"
+            ? "SR-20261025-1003"
+            : ""
+    );
+
 if (requestedReport) {
-  loadReport(requestedReport);
+    loadReport(requestedReport);
 }
